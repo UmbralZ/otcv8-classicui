@@ -4,7 +4,6 @@ EnterGame = { }
 local loadBox
 local enterGame
 local enterGameButton
-local logpass
 local clientBox
 local protocolLogin
 local server = nil
@@ -298,9 +297,6 @@ end
 function EnterGame.init()
   if USE_NEW_ENERGAME then return end
   enterGame = g_ui.displayUI('entergame')
-  if LOGPASS ~= nil then
-    logpass = g_ui.loadUI('logpass', enterGame:getParent())
-  end
   
   serverSelectorPanel = enterGame:getChildById('serverSelectorPanel')
   customServerSelectorPanel = enterGame:getChildById('customServerSelectorPanel')
@@ -362,11 +358,6 @@ end
 function EnterGame.terminate()
   if not enterGame then return end
   g_keyboard.unbindKeyDown('Ctrl+G')
-
-  if logpass then
-    logpass:destroy()
-    logpass = nil
-  end
   
   enterGame:destroy()
   if loadBox then
@@ -386,22 +377,11 @@ function EnterGame.show()
   enterGame:raise()
   enterGame:focus()
   enterGame:getChildById('accountNameTextEdit'):focus()
-  if logpass then
-    logpass:show()
-    logpass:raise()
-    logpass:focus()
-  end
 end
 
 function EnterGame.hide()
   if not enterGame then return end
   enterGame:hide()
-  if logpass then
-    logpass:hide()
-    if modules.logpass then
-      modules.logpass:hide()
-    end
-  end
 end
 
 function EnterGame.openWindow()
@@ -415,7 +395,6 @@ end
 function EnterGame.clearAccountFields()
   enterGame:getChildById('accountNameTextEdit'):clearText()
   enterGame:getChildById('accountPasswordTextEdit'):clearText()
-  enterGame:getChildById('accountTokenTextEdit'):clearText()
   enterGame:getChildById('accountNameTextEdit'):focus()
   g_settings.remove('account')
   g_settings.remove('password')
@@ -442,19 +421,18 @@ function EnterGame.onServerChange()
   end
 end
 
-function EnterGame.doLogin(account, password, token, host)
+function EnterGame.doLogin()
   if g_game.isOnline() then
     local errorBox = displayErrorBox(tr('Login Error'), tr('Cannot login while already in game.'))
     connect(errorBox, { onOk = EnterGame.show })
     return
   end
   
-  G.account = account or enterGame:getChildById('accountNameTextEdit'):getText()
-  G.password = password or enterGame:getChildById('accountPasswordTextEdit'):getText()
-  G.authenticatorToken = token or enterGame:getChildById('accountTokenTextEdit'):getText()
+  G.account = enterGame:getChildById('accountNameTextEdit'):getText()
+  G.password = enterGame:getChildById('accountPasswordTextEdit'):getText()
   G.stayLogged = true
   G.server = serverSelector:getText():trim()
-  G.host = host or serverHostTextEdit:getText()
+  G.host = serverHostTextEdit:getText()
   G.clientVersion = tonumber(clientVersionSelector:getText())  
  
   if not rememberPasswordBox:isChecked() then

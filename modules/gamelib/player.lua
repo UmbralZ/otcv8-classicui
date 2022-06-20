@@ -39,7 +39,8 @@ InventorySlotLast = 10
 
 function Player:isPartyLeader()
   local shield = self:getShield()
-  return (shield == ShieldYellow or
+  return (shield == ShieldWhiteYellow or
+          shield == ShieldYellow or
           shield == ShieldYellowSharedExp or
           shield == ShieldYellowNoSharedExpBlink or
           shield == ShieldYellowNoSharedExp)
@@ -47,7 +48,8 @@ end
 
 function Player:isPartyMember()
   local shield = self:getShield()
-  return (shield == ShieldYellow or
+  return (shield == ShieldWhiteYellow or
+          shield == ShieldYellow or
           shield == ShieldYellowSharedExp or
           shield == ShieldYellowNoSharedExpBlink or
           shield == ShieldYellowNoSharedExp or

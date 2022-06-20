@@ -115,12 +115,15 @@ function loadMap()
     loaded = g_minimap.loadOtmm(minimapFile)
   end
   if not loaded then
-    print("Minimap couldn't be loaded, file missing?")
+    print("Minimap couldn't be loaded")
   end
   minimapWidget:load()
 end
 
 function saveMap()
+  if not loaded then
+    return
+  end
   local clientVersion = g_game.getClientVersion()
   local minimapFile = '/minimap' .. clientVersion .. '.otmm' 
   g_minimap.saveOtmm(minimapFile)

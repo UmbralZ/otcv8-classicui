@@ -1,3 +1,6 @@
 
 .vs/
+.release/
+
 /otclientv8.log
+/data/things

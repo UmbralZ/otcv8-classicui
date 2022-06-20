@@ -31,10 +31,6 @@ OptionPanel
     !text: tr('Fullscreen')
     tooltip: Ctrl+Shift+F
 
-  OptionCheckBox
-    id: antialiasing
-    !text: tr('Antialiasing')
-
   Label
     margin-top: 12
     id: optimizationLevelLabel

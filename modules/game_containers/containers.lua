@@ -116,15 +116,6 @@ function onContainerOpen(container, previousContainer)
     previousContainer.itemsPanel = nil
   else
     containerWindow = g_ui.createWidget('ContainerWindow', modules.game_interface.getContainerPanel())
-
-    -- white border flash effect
-    containerWindow:setBorderWidth(2)
-    containerWindow:setBorderColor("#FFFFFF")
-    scheduleEvent(function() 
-      if containerWindow then
-        containerWindow:setBorderWidth(0)
-      end
-    end, 300)
   end
   
   containerWindow:setId('container' .. container:getId())
@@ -199,8 +190,8 @@ function onContainerOpen(container, previousContainer)
 
   local layout = containerPanel:getLayout()
   local cellSize = layout:getCellSize()
-  containerWindow:setContentMinimumHeight(cellSize.height)
-  containerWindow:setContentMaximumHeight(cellSize.height*layout:getNumLines())
+  containerWindow:setContentMinimumHeight(cellSize.height + 1)
+  containerWindow:setContentMaximumHeight(cellSize.height*layout:getNumLines() + 4)
 
   if container:hasPages() then
     local height = containerWindow.miniwindowScrollBar:getMarginTop() + containerWindow.pagePanel:getHeight()+17
@@ -211,7 +202,7 @@ function onContainerOpen(container, previousContainer)
 
   if not previousContainer then
     local filledLines = math.max(math.ceil(container:getItemsCount() / layout:getNumColumns()), 1)
-    containerWindow:setContentHeight(filledLines*cellSize.height)
+    containerWindow:setContentHeight(filledLines*cellSize.height + 1)
   end
 
   containerWindow:setup()

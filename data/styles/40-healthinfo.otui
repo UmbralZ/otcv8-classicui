@@ -1,147 +1,109 @@
-ExperienceBar < ProgressBar
-  id: experienceBar
-  background-color: #B6E866
-  anchors.top: prev.bottom
+FullHealthBar < ProgressBar
+  height: 11
+  image-source: /images/ui/emptybar
+  anchors.top: parent.top
+  anchors.left: parent.left
+  margin-left: 24
+  margin-top: 4
+  margin-right: 51
+
+HealthBar < ProgressBar
+  id: healthBar
+  image-source: /images/ui/fullhealthbar
+  height: 11
+  anchors.top: parent.top
+  anchors.left: parent.left
+  margin-left: 24
+  margin-top: 4
+  margin-right: 51
+
+ManaBar < ProgressBar
+  id: manaBar
+  image-source: /images/ui/fullmanabar
+  height: 11
+  anchors.top: healthBar.bottom
+  anchors.left: parent.left
+  margin: 2
+  margin-left: 24
+  margin-top: 4
+  margin-right: 72
+
+FullManaBar < ProgressBar
+  height: 11
+  image-source: /images/ui/emptybar
+  anchors.top: healthBar.bottom
   anchors.left: parent.left
   anchors.right: parent.right
-  margin: 1
-  margin-top: 3
+  margin: 2
+  margin-top: 4
+  margin-right: 72
+  margin-left: 24
 
-SoulLabel < GameLabel
-  id: soulLabel
-  text-align: right
-  color: white
-  font: verdana-11px-rounded
-  anchors.bottom: parent.bottom
-  anchors.right: parent.right
-  anchors.left: parent.horizontalCenter
-  margin-top: 5
-  margin-right: 3
-  on: true
-
-  $!on:
-    visible: false
-    margin-top: 0
-    height: 0
-
-CapLabel < GameLabel
-  id: capLabel
-  color: white
-  font: verdana-11px-rounded
-  anchors.bottom: parent.bottom
+ManaLabel < GameLabel
+  id: manaLabel
+  color: #AFAFAF
+  font: verdana-11px-antialised
+  text-offset: 140 0
   anchors.left: parent.left
-  anchors.right: parent.horizontalCenter
-  margin-top: 5
-  margin-left: 3
-  on: true
+  anchors.right: parent.right
+  anchors.top: manaBar.top
+  anchors.bottom: manaBar.bottom
+  margin-top: -2
+  margin-left: -20
 
-  $!on:
-    visible: false
-    margin-top: 0
-    height: 0
+HealthLabel < GameLabel
+  id: healthLabel
+  color: #AFAFAF
+  font: verdana-11px-antialised
+  text-offset: 140 0
+  anchors.left: parent.left
+  anchors.right: parent.right
+  anchors.top: healthBar.top
+  anchors.bottom: healthBar.bottom
+  margin-top: -2
+  margin-left: -20
 
 ConditionWidget < UIWidget
-  size: 18 18
+  size: 10 8
 
   $!first:
     margin-left: 2
-      
-HealthOverlay < UIWidget
-  id: healthOverlay
-  anchors.fill: parent
-  phantom: true
-  
-  HealthBar
-    id: topHealthBar
-    anchors.top: parent.top
-    anchors.left: parent.left
-    anchors.right: parent.horizontalCenter
-    phantom: true
 
-  ManaBar
-    id: topManaBar
-    anchors.top: parent.top
-    anchors.right: parent.right
-    anchors.left: parent.horizontalCenter
-    phantom: true
-    
-  UIProgressBar
-    id: healthCircle
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.verticalCenter: parent.verticalCenter
-    image-source: /images/game/circle/left_empty
-    margin-right: 169
-    margin-bottom: 16
-    opacity: 0.5
-    phantom: true
-
-  UIProgressBar
-    id: healthCircleFront
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.verticalCenter: parent.verticalCenter
-    image-source: /images/game/circle/left_full
-    margin-right: 169
-    margin-bottom: 16
-    opacity: 0.5
-    phantom: true
-
-  UIProgressBar
-    id: manaCircle
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.verticalCenter: parent.verticalCenter
-    image-source: /images/game/circle/right_empty    
-    image-auto-resize: true
-    margin-left: 130
-    margin-bottom: 16
-    opacity: 0.5
-    phantom: true
-
-  UIProgressBar
-    id: manaCircleFront
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.verticalCenter: parent.verticalCenter
-    image-source: /images/game/circle/right_full
-    margin-left: 130
-    margin-bottom: 16    
-    opacity: 0.4
-    image-color: #0000FFFF
-    phantom: true
-  
-HealthInfoWindow < MiniWindow
+HealthInfoWindow < HeadlessMiniWindow
+  icon:
+  text:
+  height: 50
+  &forceOpen: true
   icon: /images/topbuttons/healthinfo
-  !text: tr('Health Info')
-  height: 123
+  !text: tr('Health Info') 
 
   MiniWindowContents
+    margin-top: 1
+    FullHealthBar
     HealthBar
-      id: healthBar
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.right: parent.right
-      margin: 2
-      margin-top: 1
-      
+    FullManaBar
     ManaBar
-      id: manaBar
-      anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
-      margin: 2
-      
-    ExperienceBar
-    Panel
-      id: conditionPanel
-      layout:
-        type: horizontalBox
-      height: 22
-      margin-top: 4
-      padding: 2
-      anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
-      border-width: 1
-      border-color: #00000077
-      background-color: #ffffff11
-    SoulLabel
-    CapLabel
+    HealthLabel
+    ManaLabel
 
+    Label
+      height: 24
+      image-source: /images/ui/progress_icons
+      anchors.top: parent.top
+      anchors.left: manaBar.left
+      margin-left: -16
+      margin-top: 5
+
+  Panel
+    id: conditionPanel
+    layout:
+      type: horizontalBox
+    height: 0
+    margin-top: -10
+    padding: 0
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    border-width: 0
+    border-color: #00000077
+    background-color: #ffffff11

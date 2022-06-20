@@ -95,19 +95,23 @@ CombatBox < UICheckBox
 
 
 InventoryButton < Button
-  font: verdana-11px-antialised
   height: 18
   margin-top: 2
   text-align: center
+  font: cipsoftFont
+  color: white
+  size: 45 20
+  text-offset: 2 2
 
 SoulCapLabel < GameLabel
   text-align: center
   color: #FFFFFF
   font: cipsoftFont
   margin-top: 4
-  text-offset: 0 3
-  width: 36
-  height: 20
+  text-offset: 0 0
+  width: 34
+  height: 21
+  icon-source: /images/game/slots/soul
   icon-source: /images/game/slots/soulcap
       
 FightOffensiveBox < CombatBox
@@ -124,16 +128,46 @@ SafeFightBox < CombatBox
 MountButton < CombatBox
   image-source: /images/game/combatmodes/mount    
 
-InventoryWindow < MiniWindow
+InventoryWindow < HeadlessMiniWindow
   icon: /images/topbuttons/inventory
-  height: 200
+  height: 170
   id: inventoryWindow
   @onClose: modules.game_inventory.onMiniWindowClose()
   &save: true
   &autoOpen: 3
+  &forceOpen: true
 
   MiniWindowContents
     anchors.left: parent.left
+    margin-top: 0
+    
+    UIButton
+      id: minimizeButton
+      anchors.top: parent.top
+      anchors.left: parent.left
+      size: 14 14
+      image-source: /images/ui/miniwindow_buttons
+      image-clip: 0 0 14 14
+      margin-top: 3
+      margin-left: 4
+
+      $hover:
+        image-clip: 0 14 14 14
+
+      $pressed:
+        image-clip: 0 28 14 14
+
+      $on:
+        image-clip: 14 0 14 14
+
+      $on hover:
+        image-clip: 14 14 14 14
+
+      $on pressed:
+        image-clip: 14 28 14 14
+      
+      @onClick: |
+        self:getParent():getParent().minimizeButton:onClick()
         
     Panel
       id: inventoryPanel
@@ -194,12 +228,12 @@ InventoryWindow < MiniWindow
         margin-top: 3
 
       SoulCapLabel
-        id: soulLabel
+        id: capLabel
         anchors.top: slot10.bottom
         anchors.horizontalCenter: slot10.horizontalCenter
         
       SoulCapLabel
-        id: capLabel
+        id: soulLabel
         anchors.top: slot9.bottom
         anchors.horizontalCenter: slot9.horizontalCenter
 
@@ -212,7 +246,7 @@ InventoryWindow < MiniWindow
         id: conditionPanel
         layout:
           type: horizontalBox
-        height: 22
+        height: 13
         padding: 2
         anchors.top: slot8.bottom
         anchors.left: slot6.left
@@ -221,7 +255,7 @@ InventoryWindow < MiniWindow
         border-width: 1
         border-color: #00000077
         background-color: #ffffff22
-        
+
     Panel
       margin-top: 5
       anchors.fill: parent
@@ -231,7 +265,7 @@ InventoryWindow < MiniWindow
         id: fightOffensiveBox
         anchors.left: parent.left
         anchors.top: parent.top        
-        margin-left: 8
+        margin-left: 0
 
       ChaseModeBox
         id: chaseModeBox
@@ -243,7 +277,7 @@ InventoryWindow < MiniWindow
         margin-top: 22
         anchors.left: parent.left
         anchors.top: parent.top
-        margin-left: 8
+        margin-left: 0
         
       SafeFightBox
         id: safeFightBox
@@ -256,33 +290,27 @@ InventoryWindow < MiniWindow
         margin-top: 44
         anchors.left: parent.left
         anchors.top: parent.top
-        margin-left: 8
+        margin-left: 0
         
       MountButton
         id: mountButton
         margin-top: 44
         anchors.left: prev.right
         anchors.top: parent.top
-        
+
       Panel
         id: buttonsPanel
-        margin-top: 4
+        margin-top: 7
         margin-right: 5
         anchors.fill: parent
         anchors.top: prev.bottom
         layout:
           type: verticalBox
-        
-        UIButton
-          id: buttonPvp
-          height: 20
-          icon: /images/game/combatmodes/pvp
-          icon-clip: 0 0 42 20
 
           $on:
             icon-clip: 0 20 42 20
         
-        InventoryButton
+        InventoryButton 
           !text: tr('Stop')
           @onClick: g_game.stop(); g_game.cancelAttackAndFollow()
 
@@ -295,5 +323,5 @@ InventoryWindow < MiniWindow
           @onClick: modules.game_hotkeys.toggle()
 
         InventoryButton
-          !text: tr('Logout')
-          @onClick: modules.game_interface.tryLogout()
+          !text: tr('Quests') 
+          @onClick: g_game.requestQuestLog()

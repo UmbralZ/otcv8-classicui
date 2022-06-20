@@ -50,9 +50,9 @@ local defaultOptions = {
   walkTeleportDelay = 200,
   walkCtrlTurnDelay = 150,
 
-  topBar = true,
+  topBar = false,
 
-  actionbarBottom1 = true,
+  actionbarBottom1 = false,
   actionbarBottom2 = false,
   actionbarBottom3 = false,
 
@@ -66,10 +66,9 @@ local defaultOptions = {
 
   actionbarLock = false,
 
-  profile = 1,
+  profile = 1
   
-  antialiasing = true
-}
+  }
 
 local optionsWindow
 local optionsButton
@@ -81,7 +80,6 @@ local interfacePanel
 local consolePanel
 local graphicsPanel
 local audioPanel
-local customPanel
 local extrasPanel
 local audioButton
 
@@ -131,8 +129,6 @@ function init()
     optionsTabBar:addTab(tr('Extras'), extrasPanel, '/images/optionstab/extras')
   end
 
-  customPanel = g_ui.loadUI('custom')
-  optionsTabBar:addTab(tr('Custom'), customPanel, '/images/optionstab/features')
 
   optionsButton = modules.client_topmenu.addLeftButton('optionsButton', tr('Options'), '/images/topbuttons/options', toggle)
   audioButton = modules.client_topmenu.addLeftButton('audioButton', tr('Audio'), '/images/topbuttons/audio', function() toggleOption('enableAudio') end)
@@ -350,8 +346,6 @@ function setOption(key, value, force)
     generalPanel:getChildById('walkTeleportDelayLabel'):setText(tr('Walk delay after teleport: %s ms', value))  
   elseif key == 'walkCtrlTurnDelay' then
     generalPanel:getChildById('walkCtrlTurnDelayLabel'):setText(tr('Walk delay after ctrl turn: %s ms', value))  
-  elseif key == "antialiasing" then
-    g_app.setSmooth(value)
   end
 
   -- change value for keybind updates
@@ -390,7 +384,7 @@ function setOption(key, value, force)
   elseif key:find("actionbar") then
     modules.game_actionbar.show()
   end
-
+  
   if key == 'topBar' then
     modules.game_topbar.show()
   end
@@ -412,7 +406,6 @@ end
 
 function online()
   setLightOptionsVisibility(not g_game.getFeature(GameForceLight))
-  g_app.setSmooth(g_settings.getBoolean("antialiasing"))
 end
 
 function offline()

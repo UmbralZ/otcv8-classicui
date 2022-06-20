@@ -1,0 +1,92 @@
+SpecialMiniWindow < UIMiniWindow
+  font: cipsoftFont
+  icon-rect: 4 3 13 12
+  width: 25
+  height: 18
+  focusable: true
+  &minimizedHeight: 20
+
+  $on:
+    image-border-bottom: 2
+
+  UIWidget
+    id: miniwindowTopBar
+    margin-right: 3
+    margin-left: 3
+    margin-top: 3
+
+  UIButton
+    id: closeButton
+
+  UIButton
+    id: minimizeButton
+
+
+    id: miniwindowScrollBar
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    step: 0
+    margin-top: -0
+    margin-right: 0
+    margin-bottom: 0
+    pixels-scroll: true
+
+    $!on:
+      width: 0
+
+  ResizeBorder
+    id: bottomResizeBorder
+    height: 3
+    minimum: 48
+    margin-left: 3
+    margin-right: 3
+    enabled: false
+
+SpecialMiniWindow
+  id: playerBarsWindow
+  height: 28
+  @onClose: modules.game_inventory.onMiniWindowClose()
+  &save: true
+  &notMinimize: true
+
+  MiniWindowContents
+    ButtonBox
+      id: SkillsButton
+      font: cipsoftFont
+      !text: tr('Skills')
+      size: 40 20	  
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin: 0 0
+      @onCheckChange: modules.game_skills.toggle()
+
+    ButtonBox
+      id: BattleButton
+      font: cipsoftFont
+      anchors.left: SkillsButton.right
+      anchors.top: SkillsButton.top
+      margin-left: 3
+      text: Battle
+      size: 40 20	  
+      @onCheckChange: modules.game_battle.toggle()
+
+    ButtonBox
+      id: VipButton
+      font: cipsoftFont
+      anchors.left: BattleButton.right
+      anchors.top: BattleButton.top
+      margin-left: 3
+      text: Vip
+      size: 35 20
+      @onCheckChange: modules.game_viplist.toggle()
+
+    ButtonBox
+      id: FullScreenButton
+      font: cipsoftFont
+      anchors.left: VipButton.right
+      anchors.top: VipButton.top
+      margin-left: 5
+      text: Logout
+      size: 60 20		  	  
+      @onClick: modules.game_interface.tryLogout()

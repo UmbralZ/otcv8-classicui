@@ -1,11 +1,11 @@
 PopupMenuButton < UIButton
   height: 18
   size: 0 21
-  text-offset: 4 0
+  text-offset: 4 2
   text-align: left
   font: verdana-11px-antialised
 
-  color: #aaaaaa
+  color: white
   background-color: alpha
 
   $hover !disabled:
@@ -27,7 +27,7 @@ PopupMenuSeparator < UIWidget
   margin-left: 2
   margin-right: 2
   margin-bottom: 1
-  image-source: /images/ui/menubox
+  image-source: /images/ui/separator_horizontal
   image-border-left: 1
   image-border-right: 1
   image-clip: 0 0 32 2
@@ -35,10 +35,10 @@ PopupMenuSeparator < UIWidget
   phantom: true
 
 PopupMenu < UIPopupMenu
-  width: 50
+  width: 120
   image-source: /images/ui/menubox
   image-border: 3
-  padding: 3
+  padding: 5
 
 PopupScrollMenuButton < UIButton
   height: 18

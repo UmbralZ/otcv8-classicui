@@ -11,6 +11,3 @@ Cursors
   vertical:
     image: verticalcursor
     hot-spot: 4 9
-  pointer:
-    image: pointer
-    hot-spot: 5 0

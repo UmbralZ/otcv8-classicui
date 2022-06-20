@@ -1,0 +1,242 @@
+MinimapFlag < UIWidget
+  size: 11 11
+  focusable: false
+
+MinimapCross < UIWidget
+  focusable: false
+  phantom: true
+  image: /images/game/minimap/cross
+  size: 16 16
+
+MinimapFloorUpButton < Button
+  size: 20 20
+  margin-right: 28
+  margin-bottom: 28
+  anchors.right: parent.right
+  anchors.bottom: parent.bottom
+  icon-source: /images/game/minimap/floor_up
+  icon-clip: 0 -15 -20 -78
+  $pressed:
+    icon-clip: 0 0 20 20
+  $hover !pressed:
+    icon-clip: 0 20 20 20
+
+MinimapFloorDownButton < Button
+  size: 20 20
+  margin-right: 28
+  margin-bottom: 4
+  anchors.right: parent.right
+  anchors.bottom: parent.bottom
+  icon-source: /images/game/minimap/floor_down
+  icon-clip: 0 40 20 20
+  $pressed:
+    icon-clip: 0 0 20 20
+  $hover !pressed:
+    icon-clip: 0 20 20 20
+
+MinimapZoomInButton < Button
+  text: +
+  size: 20 20
+  margin-right: 4
+  margin-bottom: 28
+  anchors.right: parent.right
+  anchors.bottom: parent.bottom
+  //icon-source: /images/game/minimap/zoom_in
+
+MinimapZoomOutButton < Button
+  text: -
+  size: 20 20
+  margin-right: 4
+  margin-bottom: 4
+  anchors.right: parent.right
+  anchors.bottom: parent.bottom
+  //icon-source: /images/game/minimap/zoom_out
+
+MinimapResetButton < Button
+  !text: tr('Centre')
+  size: 44 20
+  anchors.left: parent.left
+  anchors.top: parent.top
+
+Minimap < UIMinimap
+  draggable: true
+  focusable: false
+  cross: true
+  color: black
+
+  MinimapFloorUpButton
+    id: floorUp
+    @onClick: self:getParent():floorUp(1)
+
+  MinimapFloorDownButton
+    id: floorDown
+    @onClick: self:getParent():floorDown(1)
+
+  MinimapZoomInButton
+    id: zoomIn
+    @onClick: self:getParent():zoomIn()
+
+  MinimapZoomOutButton
+    id: zoomOut
+    @onClick: self:getParent():zoomOut()
+
+  MinimapResetButton
+    id: reset
+    @onClick: self:getParent():reset()
+
+
+// Minimap Flag Create Window
+
+
+MinimapFlagCheckBox < CheckBox
+  size: 16 16
+  margin-left: 5
+  image-source: /images/game/minimap/flagcheckbox
+  image-size: 16 16
+  image-border: 3
+  icon-source: /images/game/minimap/mapflags
+  icon-size: 11 11
+  icon-offset: 2 2
+  anchors.left: prev.right
+  anchors.top: prev.top
+
+  $!checked:
+    image-clip: 16 0 16 16
+
+  $checked:
+    image-clip: 0 0 16 16
+    icon-offset: 3 3
+
+MinimapFlagWindow < MainWindow
+  !text: tr('Edit Mark')
+  size: 286 189
+
+  Label
+    !text: tr('Enter a short description') .. ':'
+    color: #BFBFBF
+    anchors.left: parent.left
+    anchors.top: parent.top
+
+  TextEdit
+    id: description
+    margin-top: 3
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    anchors.right: parent.right
+
+  Label
+    !text: tr('Select a type') .. ':'
+    color: #BFBFBF
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 10
+
+  MinimapFlagCheckBox
+    id: flag0
+    icon-source: /images/game/minimap/flag0
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 6
+    margin-left: 0  
+
+  MinimapFlagCheckBox
+    id: flag1
+    icon-source: /images/game/minimap/flag1
+
+  MinimapFlagCheckBox
+    id: flag2
+    icon-source: /images/game/minimap/flag2
+
+  MinimapFlagCheckBox
+    id: flag3
+    icon-source: /images/game/minimap/flag3
+
+  MinimapFlagCheckBox
+    id: flag4
+    icon-source: /images/game/minimap/flag4
+
+  MinimapFlagCheckBox
+    id: flag5
+    icon-source: /images/game/minimap/flag5
+
+  MinimapFlagCheckBox
+    id: flag6
+    icon-source: /images/game/minimap/flag6
+
+  MinimapFlagCheckBox
+    id: flag7
+    icon-source: /images/game/minimap/flag7
+
+  MinimapFlagCheckBox
+    id: flag8
+    icon-source: /images/game/minimap/flag8
+
+  MinimapFlagCheckBox
+    id: flag9
+    icon-source: /images/game/minimap/flag9
+
+  MinimapFlagCheckBox
+    id: flag10
+    icon-source: /images/game/minimap/flag10
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 6
+    margin-left: 0  
+
+  MinimapFlagCheckBox
+    id: flag11
+    icon-source: /images/game/minimap/flag11
+
+  MinimapFlagCheckBox
+    id: flag12
+    icon-source: /images/game/minimap/flag12
+
+  MinimapFlagCheckBox
+    id: flag13
+    icon-source: /images/game/minimap/flag13
+
+  MinimapFlagCheckBox
+    id: flag14
+    icon-source: /images/game/minimap/flag14
+
+  MinimapFlagCheckBox
+    id: flag15
+    icon-source: /images/game/minimap/flag15
+
+  MinimapFlagCheckBox
+    id: flag16
+    icon-source: /images/game/minimap/flag16
+
+  MinimapFlagCheckBox
+    id: flag17
+    icon-source: /images/game/minimap/flag17
+
+  MinimapFlagCheckBox
+    id: flag18
+    icon-source: /images/game/minimap/flag18
+
+  MinimapFlagCheckBox
+    id: flag19
+    icon-source: /images/game/minimap/flag19
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-bottom: 10
+    margin-top: 5
+
+  Button
+    id: okButton
+    !text: tr('Ok')
+    width: 45
+    anchors.right: next.left
+    anchors.bottom: parent.bottom
+    margin-right: 10
+
+  Button
+    id: cancelButton
+    !text: tr('Cancel')
+    width: 45
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom

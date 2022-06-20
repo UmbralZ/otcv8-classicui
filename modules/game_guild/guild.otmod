@@ -1,0 +1,8 @@
+Module
+  name: game_guild
+  description: Guild management
+  author: Zysen
+  website: noob.net
+  sandboxed: true
+  scripts: [ guild ]
+  @onLoad: init()

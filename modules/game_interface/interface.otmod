@@ -24,7 +24,6 @@ Module
     - game_playertrade
     - game_bugreport
     - game_playerdeath
-    - game_playermount
     - game_ruleviolation
     - game_market
     - game_spelllist
@@ -37,10 +36,8 @@ Module
     - client_textedit
     - client_profiles
     - game_actionbar
-    - game_prey
-    - game_imbuing
     - game_stats
     - game_shaders
-    - game_bot
+    - game_playerbars
   @onLoad: init()
   @onUnload: terminate()

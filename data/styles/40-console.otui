@@ -1,12 +1,12 @@
 ConsoleLabel < UITextEdit
   font: verdana-11px-antialised
-  height: 14
+  height: 8
   color: yellow
-  margin-left: 2
+  margin-left: 1
   text-wrap: true
   text-auto-resize: true
   selection-color: #111416
-  selection-background-color: #999999
+  selection-background-color: #808080
   change-cursor-image: false
   cursor-visible: false
   editable: false
@@ -16,7 +16,7 @@ ConsoleLabel < UITextEdit
 
 ConsolePhantomLabel < UILabel
   font: verdana-11px-antialised
-  height: 14
+  height: 6
   color: yellow
   text-wrap: true
   text-auto-resize: true
@@ -24,7 +24,7 @@ ConsolePhantomLabel < UILabel
   selection-background-color: #999999
 
 ConsoleTabBar < MoveableTabBar
-  height: 28
+  height: 21
 
 ConsoleTabBarPanel < MoveableTabBarPanel
   id: consoleTab
@@ -37,9 +37,8 @@ ConsoleTabBarPanel < MoveableTabBarPanel
     layout:
       type: verticalBox
       align-bottom: true
-    border-width: 1
-    border-color: #202327
-    background: #00000066
+    border-width: 2
+    border-color: #383535
     inverted-scroll: true
     padding: 1
 
@@ -52,12 +51,13 @@ ConsoleTabBarPanel < MoveableTabBarPanel
     pixels-scroll: true
 
 ConsoleTabBarButton < MoveableTabBarButton
-  height: 28
-  padding: 15
+  height: 20
+  padding: 35
 
 ConsolePanel < Panel
   image-source: /images/ui/panel_bottom
-  image-border: 4
+  image-border: 12
+  image-border-top: 30
   
   $first:
     anchors.fill: parent
@@ -73,7 +73,7 @@ ConsolePanel < Panel
     !tooltip: tr('Disable chat mode, allow to walk using ASDW')
     anchors.left: parent.left
     anchors.top: parent.top
-    margin-left: 13
+    margin-left: 6
     margin-top: 8
     @onCheckChange: toggleChat()
 
@@ -82,18 +82,16 @@ ConsolePanel < Panel
     icon: /images/game/console/leftarrow
     anchors.left: toggleChat.right
     anchors.top: parent.top
-    margin-left: 3
     margin-top: 6
-
+    size: 16 16
+    
   ConsoleTabBar
     id: consoleTabBar
     anchors.left: prev.right
     anchors.top: parent.top
     anchors.right: next.left
-    margin-left: 5
     margin-top: 3
-    margin-right: 5
-    tab-spacing: 2
+    tab-spacing: 3
     movable: true
 
   TabButton
@@ -101,8 +99,9 @@ ConsolePanel < Panel
     icon: /images/game/console/rightarrow
     anchors.right: next.left
     anchors.top: parent.top
-    margin-right: 5
-    margin-top: 6
+    margin-top: 5
+    size: 16 16
+    margin-right: 2
 
   TabButton
     id: closeChannelButton
@@ -111,18 +110,30 @@ ConsolePanel < Panel
     anchors.right: next.left
     anchors.top: parent.top
     enabled: false
-    margin-right: 5
-    margin-top: 6
-    @onClick: removeCurrentTab()
+    margin-right: 2
+    margin-top: 5
+    size: 16 16
+    icon-clip: 0 0 16 16
 
+    $pressed:
+      icon-clip: 0 16 16 16
+
+    @onClick: removeCurrentTab()
+    
   TabButton
     id: clearChannelButton
     !tooltip: tr('Clear current message window')
     icon: /images/game/console/clearchannel
     anchors.right: next.left
     anchors.top: parent.top
-    margin-right: 5
-    margin-top: 6
+    margin-right: 2
+    margin-top: 5
+    size: 16 16
+    icon-clip: 0 0 16 16
+
+    $pressed:
+      icon-clip: 0 16 16 16
+
     @onClick: |
       local consoleTabBar = self:getParent():getChildById('consoleTabBar')
       clearChannel(consoleTabBar)
@@ -133,8 +144,14 @@ ConsolePanel < Panel
     icon: /images/game/console/channels
     anchors.right: next.left
     anchors.top: parent.top
-    margin-right: 5
-    margin-top: 6
+    margin-right: 2
+    margin-top: 5
+    size: 16 16
+    icon-clip: 0 0 16 16
+
+    $pressed:
+      icon-clip: 0 16 16 16
+
     @onClick: g_game.requestChannels()
 
   TabButton
@@ -143,20 +160,26 @@ ConsolePanel < Panel
     icon: /images/game/console/ignore
     anchors.right: parent.right
     anchors.top: parent.top
-    margin-right: 5
-    margin-top: 6
+    margin-right: 1
+    margin-top: 5
+    size: 16 16
+    icon-clip: 0 0 16 16
+
+    $pressed:
+      icon-clip: 0 16 16 16
+
     @onClick: onClickIgnoreButton()
 
   Panel
     id: consoleContentPanel
-    anchors.top: prev.bottom
+    anchors.top: consoleTabBar.bottom
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: consoleTextEdit.top
-    margin-left: 6
-    margin-right: 6
-    margin-bottom: 4
-    margin-top: 4
+    margin-left: 5
+    margin-right: 5
+    margin-bottom: 2
+    margin-top: 5
     padding: 1
     focusable: false
     phantom: true
@@ -166,21 +189,30 @@ ConsolePanel < Panel
     icon: /images/game/console/say
     !tooltip: tr('Adjust volume')
     &sayMode: 2
-    size: 20 20
+    size: 18 18
     anchors.left: parent.left
     anchors.bottom: parent.bottom
-    margin-left: 6
-    margin-bottom: 6
+    margin-left: 8
+    margin-bottom: 4
     @onClick: sayModeChange()
+
+  HorizontalSeparator
+    id: separator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: prev.top
+    margin-bottom: 3
+    margin-left: 7
+    margin-right: 7
 
   TextEdit
     id: consoleTextEdit
     anchors.left: sayModeButton.right
     anchors.right: parent.right
     anchors.bottom: parent.bottom
-    margin-right: 6
-    margin-left: 6
-    margin-bottom: 6
+    margin-right: 7
+    margin-left: 2
+    margin-bottom: 4
     shift-navigation: true
     max-length: 255
     text-auto-submit: true
