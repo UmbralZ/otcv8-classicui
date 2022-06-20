@@ -3,14 +3,14 @@ GameSidePanel < UIMiniWindowContainer
   image-border: 4
   padding: 3
   padding-top: 0
-  width: 200
+  width: 185
   focusable: false
   on: true
   layout:
     type: verticalBox
   $mobile:
     padding: 0
-    width: 200
+    width: 185
   
 
 GameMapPanel < UIGameMap
