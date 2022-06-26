@@ -14,6 +14,7 @@ Module
     - game_outfit
     - game_healthinfo
     - game_inventory
+    - game_sidebuttons
     - game_skills
     - game_containers
     - game_viplist

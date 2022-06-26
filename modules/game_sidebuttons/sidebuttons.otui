@@ -1,0 +1,51 @@
+NonClosableMiniWindow
+  height: 40
+  id: sideButtonsWindow
+  @onClose: modules.game_inventory.onMiniWindowClose()
+  &save: true
+  &autoOpen: 3
+
+  NonClosableMiniWindowContents
+    margin-left: 8
+    InventoryButton
+      id: skillsButton
+      !text: tr('Skills')
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-top: 10
+      width: 34
+      height: 20
+      @onClick: modules.game_skills.toggle()
+    
+    InventoryButton
+      id: battleButton
+      !text: tr('Battle')
+      anchors.left: prev.right
+      anchors.top: prev.top
+      margin-left: 5
+      margin-top: 0
+      width: 34
+      height: 20
+      @onClick: modules.game_battle.toggle()
+
+    InventoryButton
+      id: vipButton
+      !text: tr('VIP')
+      anchors.left: prev.right
+      anchors.top: prev.top
+      margin-left: 5
+      margin-top: 0
+      height: 20
+      width: 34
+      @onClick: modules.game_viplist.toggle()
+
+    InventoryButton
+      !text: tr('Logout')
+      anchors.left: prev.left
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 8
+      width: 42
+      height: 20
+      margin-top: 0
+      @onClick: modules.game_interface.tryLogout()

@@ -109,17 +109,17 @@ function terminate()
 end
 
 function toggle()
-  if modules.game_inventory.battleButton:isOn() then
+  if modules.game_sidebuttons.battleButton:isOn() then
     battleWindow:close()
-    modules.game_inventory.battleButton:setOn(false)
+    modules.game_sidebuttons.battleButton:setOn(false)
   else
     battleWindow:open()
-    modules.game_inventory.battleButton:setOn(true)
+    modules.game_sidebuttons.battleButton:setOn(true)
   end
 end
 
 function onMiniWindowClose()
-  modules.game_inventory.battleButton:setOn(false)
+  modules.game_sidebuttons.battleButton:setOn(false)
 end
 
 function getSortType()

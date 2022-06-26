@@ -234,12 +234,12 @@ function offline()
 end
 
 function toggle()
-  if modules.game_inventory.skillsButton:isOn() then
+  if modules.game_sidebuttons.skillsButton:isOn() then
     skillsWindow:close()
-    modules.game_inventory.skillsButton:setOn(false)
+    modules.game_sidebuttons.skillsButton:setOn(false)
   else
     skillsWindow:open()
-    modules.game_inventory.skillsButton:setOn(true)
+    modules.game_sidebuttons.skillsButton:setOn(true)
   end
 end
 
@@ -262,7 +262,7 @@ function checkExpSpeed()
 end
 
 function onMiniWindowClose()
-  modules.game_inventory.skillsButton:setOn(false)
+  modules.game_sidebuttons.skillsButton:setOn(false)
 end
 
 function onSkillButtonClick(button)

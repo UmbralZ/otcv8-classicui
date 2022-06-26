@@ -74,17 +74,17 @@ function clear()
 end
 
 function toggle()
-  if modules.game_inventory.vipButton:isOn() then
+  if modules.game_sidebuttons.vipButton:isOn() then
     vipWindow:close()
-    modules.game_inventory.vipButton:setOn(false)
+    modules.game_sidebuttons.vipButton:setOn(false)
   else
     vipWindow:open()
-    modules.game_inventory.vipButton:setOn(true)
+    modules.game_sidebuttons.vipButton:setOn(true)
   end
 end
 
 function onMiniWindowClose()
-  modules.game_inventory.vipButton:setOn(false)
+  modules.game_sidebuttons.vipButton:setOn(false)
 end
 
 function createAddWindow()
