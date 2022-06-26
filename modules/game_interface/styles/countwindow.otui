@@ -1,7 +1,7 @@
 CountWindow < MainWindow
   id: countWindow
-  !text: tr('Move Stackable Item')
-  size: 196 90
+  !text: tr('Move Objects')
+  size: 240 135
 
   SpinBox
     id: spinBox
@@ -12,42 +12,55 @@ CountWindow < MainWindow
     phantom: true
     margin-top: 2
     focusable: true
+    cursor-visible: false
 
   Item
     id: item
     anchors.left: parent.left
     anchors.top: parent.top
-    margin-top: 2
-    margin-left: -4
     focusable: false
     virtual: true
+    background-color: transparent
+    margin-top: -5
+  
+  Label
+    text: Set the number of items you want to move:
+    text-auto-resize: true
+    anchors.top: prev.top
+    anchors.left: prev.right
+    anchors.right: parent.right
+    text-wrap: true
+    margin-left: 10
 
   HorizontalScrollBar
     id: countScrollBar
-    anchors.left: prev.right
+    anchors.left: prev.left
     anchors.right: parent.right
-    anchors.top: prev.top
-    margin-left: 10
-    margin-top: -2
+    anchors.top: prev.bottom
+    margin-top: 5
+    pixel-scroll: true
+    step: 7
     focusable: false
+  
+  HorizontalSeparator
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    margin-top: 15
 
   Button
     id: buttonCancel
     !text: tr('Cancel')
     height: 20
-    anchors.left: countScrollBar.horizontalCenter
-    anchors.right: countScrollBar.right
-    anchors.top: countScrollBar.bottom
-    margin-top: 7
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
     focusable: false
 
   Button
     id: buttonOk
     !text: tr('Ok')
     height: 20
-    anchors.right: countScrollBar.horizontalCenter
-    anchors.left: countScrollBar.left
-    anchors.top: countScrollBar.bottom
-    margin-top: 7
-    margin-right: 6
+    anchors.right: prev.left
+    anchors.bottom: parent.bottom
+    margin-right: 10
     focusable: false
