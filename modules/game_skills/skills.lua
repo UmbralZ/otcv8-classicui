@@ -1,5 +1,4 @@
 skillsWindow = nil
-skillsButton = nil
 
 function init()
   connect(LocalPlayer, {
@@ -25,8 +24,6 @@ function init()
     onGameEnd = offline
   })
 
-  skillsButton = modules.client_topmenu.addRightGameToggleButton('skillsButton', tr('Skills'), '/images/topbuttons/skills', toggle, false, 1)
-  skillsButton:setOn(true)
   skillsWindow = g_ui.loadUI('skills', modules.game_interface.getRightPanel())
   
   refresh()
@@ -58,7 +55,6 @@ function terminate()
   })
 
   skillsWindow:destroy()
-  skillsButton:destroy()
 end
 
 function expForLevel(level)
@@ -238,12 +234,12 @@ function offline()
 end
 
 function toggle()
-  if skillsButton:isOn() then
+  if modules.game_inventory.skillsButton:isOn() then
     skillsWindow:close()
-    skillsButton:setOn(false)
+    modules.game_inventory.skillsButton:setOn(false)
   else
     skillsWindow:open()
-    skillsButton:setOn(true)
+    modules.game_inventory.skillsButton:setOn(true)
   end
 end
 
@@ -266,7 +262,7 @@ function checkExpSpeed()
 end
 
 function onMiniWindowClose()
-  skillsButton:setOn(false)
+  modules.game_inventory.skillsButton:setOn(false)
 end
 
 function onSkillButtonClick(button)

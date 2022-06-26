@@ -16,6 +16,12 @@ function UIMessageBox.display(title, message, buttons, onEnterCallback, onEscape
   local messageLabel = g_ui.createWidget('MessageBoxLabel', messageBox)
   messageLabel:setText(message)
 
+  local separator = g_ui.createWidget('HorizontalSeparator', messageBox)
+  separator:addAnchor(AnchorTop, 'prev', AnchorBottom)
+  separator:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+  separator:addAnchor(AnchorRight, 'parent', AnchorRight)
+  separator:setMarginTop(25)
+
   local buttonsWidth = 0
   local buttonsHeight = 0
 
@@ -24,12 +30,12 @@ function UIMessageBox.display(title, message, buttons, onEnterCallback, onEscape
 
   local buttonHolder = g_ui.createWidget('MessageBoxButtonHolder', messageBox)
   buttonHolder:addAnchor(anchor, 'parent', anchor)
+  --buttonHolder:addAnchor(AnchorTop, 'prev', AnchorBottom)
 
   for i=1,#buttons do
     local button = messageBox:addButton(buttons[i].text, buttons[i].callback)
     if i == 1 then
       button:setMarginLeft(0)
-      button:addAnchor(AnchorBottom, 'parent', AnchorBottom)
       button:addAnchor(AnchorLeft, 'parent', AnchorLeft)
       buttonsHeight = button:getHeight()
     else
@@ -46,7 +52,7 @@ function UIMessageBox.display(title, message, buttons, onEnterCallback, onEscape
   if onEscapeCallback then connect(messageBox, { onEscape = onEscapeCallback }) end
 
   messageBox:setWidth(math.max(messageLabel:getWidth(), messageBox:getTextSize().width, buttonHolder:getWidth()) + messageBox:getPaddingLeft() + messageBox:getPaddingRight())
-  messageBox:setHeight(messageLabel:getHeight() + messageBox:getPaddingTop() + messageBox:getPaddingBottom() + buttonHolder:getHeight() + buttonHolder:getMarginTop())
+  messageBox:setHeight(messageLabel:getHeight() + messageBox:getPaddingTop() + messageBox:getPaddingBottom() + buttonHolder:getHeight() + buttonHolder:getMarginTop() + separator:getHeight() + separator:getMarginTop())
   return messageBox
 end
 

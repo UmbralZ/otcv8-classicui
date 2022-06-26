@@ -1,11 +1,114 @@
+InfoWindow < MainWindow
+  text: Info
+  size: 260 240
+
+  FlatPanel
+    anchors.fill: parent
+    anchors.bottom: next.top
+    margin: 5
+    margin-bottom: 25
+
+    Label
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      text-auto-resize: true
+      text-align: center
+      margin-top: 8
+      !text: tr('Tibia Client\nVersion 7.72\nCopyright (C) 2002-2006\nCipsoft GmbH\nAll rights reserved.')
+      opacity: 0.7
+
+    HorizontalSeparator
+      id: separator
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.top: prev.bottom
+      margin-top: 10
+      margin-left: 10
+      margin-right: 10
+    
+    Label
+      anchors.top: prev.bottom
+      anchors.left: prev.left
+      text-auto-resize: true
+      margin-top: 15
+      text: Official Website
+      opacity: 0.7
+    
+    Button
+      anchors.verticalCenter: prev.verticalCenter
+      anchors.left: prev.right
+      anchors.right: separator.right
+      margin-left: 10
+      text: www.tibia.com
+      @onClick: g_platform.openUrl("www.github.com/nekiro")
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-bottom: 8
+  
+  Button
+    !text: tr('Ok')
+    width: 44
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    @onClick: self:getParent():hide()
+
+MenuButton < Button
+  anchors.top: parent.top
+  anchors.horizontalCenter: parent.horizontalCenter
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin-right: 15
+  margin-left: 15
+  height: 20
+  font: cipsoftFont
+
 UIWidget
   id: background
   anchors.fill: parent
   focusable: false
   image-source: /images/background
   image-smooth: true
-  image-fixed-ratio: true
   margin-top: 1
+
+  UIWidget
+    id: menu
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    size: 118 169
+    margin-left: 60
+    margin-bottom: 60
+    border-width: 2
+    border-color: #0000004D
+    background-color: #00000066
+
+    MenuButton
+      text: Enter Game
+      margin-top: 15
+      @onClick: EnterGame.show()
+    MenuButton
+      text: Access Account
+      anchors.top: prev.bottom
+      margin-top: 10
+      @onClick: g_platform.openUrl("www.github.com/nekiro")
+    MenuButton
+      text: Options
+      anchors.top: prev.bottom
+      margin-top: 10
+      @onClick: modules.client_options.toggle()
+    MenuButton
+      text: Info
+      anchors.top: prev.bottom
+      margin-top: 10
+      @onClick: modules.client_background.showInfoWindow()
+    MenuButton
+      text: Exit Game
+      anchors.top: prev.bottom
+      margin-top: 10
+      @onClick: exit()
 
   UILabel
     id: clientVersionLabel
@@ -19,3 +122,4 @@ UIWidget
     padding: 2
     color: #ffffff
     font: terminus-14px-bold
+    visible: false

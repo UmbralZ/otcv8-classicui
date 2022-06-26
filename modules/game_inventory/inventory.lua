@@ -43,7 +43,13 @@ chaseModeButton = nil
 safeFightButton = nil
 mountButton = nil
 fightModeRadioGroup = nil
+chaseModeRadioGroup = nil
+chaseModeStandBox = nil
+chaseModeChaseBox = nil
 buttonPvp = nil
+skillsButton = nil
+battleButton = nil
+vipButton = nil
 
 soulLabel = nil
 capLabel = nil
@@ -56,12 +62,10 @@ function init()
   })
   connect(g_game, { onGameStart = refresh })
 
-  g_keyboard.bindKeyDown('Ctrl+I', toggle)
-
 
   inventoryWindow = g_ui.loadUI('inventory', modules.game_interface.getRightPanel())
   inventoryWindow:disableResize()
-  inventoryPanel = inventoryWindow:getChildById('contentsPanel'):getChildById('inventoryPanel')
+  inventoryPanel = inventoryWindow:getChildById('contentsPanel')
   if not inventoryWindow.forceOpen then
     inventoryButton = modules.client_topmenu.addRightGameToggleButton('inventoryButton', tr('Inventory') .. ' (Ctrl+I)', '/images/topbuttons/inventory', toggle)
     inventoryButton:setOn(true)
@@ -75,10 +79,17 @@ function init()
     end
   end
   
+  skillsButton = inventoryWindow:recursiveGetChildById('skillsButton')
+  battleButton = inventoryWindow:recursiveGetChildById('battleButton')
+  vipButton = inventoryWindow:recursiveGetChildById('vipButton')
+
   -- controls
   fightOffensiveBox = inventoryWindow:recursiveGetChildById('fightOffensiveBox')
   fightBalancedBox = inventoryWindow:recursiveGetChildById('fightBalancedBox')
   fightDefensiveBox = inventoryWindow:recursiveGetChildById('fightDefensiveBox')
+  
+  chaseModeStandBox = inventoryWindow:recursiveGetChildById('chaseModeBoxStand')
+  chaseModeChaseBox = inventoryWindow:recursiveGetChildById('chaseModeBoxChase')
 
   chaseModeButton = inventoryWindow:recursiveGetChildById('chaseModeBox')
   safeFightButton = inventoryWindow:recursiveGetChildById('safeFightBox')
@@ -97,8 +108,12 @@ function init()
   fightModeRadioGroup:addWidget(fightBalancedBox)
   fightModeRadioGroup:addWidget(fightDefensiveBox)
 
+  chaseModeRadioGroup = UIRadioGroup.create()
+  chaseModeRadioGroup:addWidget(chaseModeStandBox)
+  chaseModeRadioGroup:addWidget(chaseModeChaseBox)
+
   connect(fightModeRadioGroup, { onSelectionChange = onSetFightMode })
-  connect(chaseModeButton, { onCheckChange = onSetChaseMode })
+  connect(chaseModeRadioGroup, { onSelectionChange = onSetChaseMode })
   connect(safeFightButton, { onCheckChange = onSetSafeFight })
   if buttonPvp then
     connect(buttonPvp, { onClick = onSetSafeFight2 })  
@@ -142,8 +157,6 @@ function terminate()
     onBlessingsChange = onBlessingsChange
   })
   disconnect(g_game, { onGameStart = refresh })
-
-  g_keyboard.unbindKeyDown('Ctrl+I')
 
   -- controls
   if g_game.isOnline() then
@@ -266,7 +279,11 @@ function update()
   end
 
   local chaseMode = g_game.getChaseMode()
-  chaseModeButton:setChecked(chaseMode == ChaseOpponent)
+  if chaseMode == ChaseOpponent then
+    chaseModeRadioGroup:selectWidget(chaseModeChaseBox)
+  else
+    chaseModeRadioGroup:selectWidget(chaseModeStandBox)
+  end
 
   local safeFight = g_game.isSafeFight()
   safeFightButton:setChecked(not safeFight)
@@ -274,7 +291,7 @@ function update()
     if safeFight then
       buttonPvp:setOn(false)
     else
-      buttonPvp:setOn(true)  
+      buttonPvp:setOn(true)
     end
   end
   
@@ -361,9 +378,11 @@ function onSetFightMode(self, selectedFightButton)
   g_game.setFightMode(fightMode)
 end
 
-function onSetChaseMode(self, checked)
+function onSetChaseMode(self, selectedButton)
+  if selectedButton == nil then return end
+  local buttonId = selectedButton:getId()
   local chaseMode
-  if checked then
+  if buttonId == 'chaseModeBoxChase' then
     chaseMode = ChaseOpponent
   else
     chaseMode = DontChase

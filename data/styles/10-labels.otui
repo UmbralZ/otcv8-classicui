@@ -20,4 +20,4 @@ MenuLabel < Label
 
 GameLabel < UILabel
   font: verdana-11px-antialised
-  color: #dfdfdf
+  color: #D3D3D3

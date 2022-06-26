@@ -11,11 +11,11 @@ ContainerWindow < MiniWindow
   UIItem
     id: containerItemWidget
     virtual: true
-    size: 16 16
+    size: 13 13
     anchors.top: parent.top
     anchors.left: parent.left
-    margin-top: 1
-    margin-left: 3
+    margin-top: 4
+    margin-left: 5
 
   UIButton
     id: upButton
@@ -68,7 +68,10 @@ ContainerWindow < MiniWindow
 
   MiniWindowContents
     padding-right: 0
+    anchors.horizontalCenter: parent.horizontalCenter
+    padding-bottom: 5
     layout:
       type: grid
       cell-size: 34 34
+      cell-spacing: 2
       flow: true

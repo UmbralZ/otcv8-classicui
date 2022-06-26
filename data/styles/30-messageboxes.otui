@@ -4,6 +4,7 @@ MessageBoxLabel < Label
   anchors.top: parent.top
   text-wrap: true
   text-auto-resize: true
+  opacity: 0.8
 
 MessageBoxButtonHolder < UIWidget
   id: buttonHolder
@@ -12,4 +13,3 @@ MessageBoxButtonHolder < UIWidget
 
 MessageBoxButton < Button
   margin-left: 10
-  width: 80

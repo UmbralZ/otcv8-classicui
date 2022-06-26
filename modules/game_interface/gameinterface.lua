@@ -206,10 +206,10 @@ function tryExit()
   local cancelFunc = function() exitWindow:destroy() exitWindow = nil end
 
   exitWindow = displayGeneralBox(tr('Exit'), tr("If you shut down the program, your character might stay in the game.\nClick on 'Logout' to ensure that you character leaves the game properly.\nClick on 'Exit' if you want to exit the program without logging out your character."),
-  { { text=tr('Force Exit'), callback=exitFunc },
+  { { text=tr('Exit'), callback=exitFunc },
     { text=tr('Logout'), callback=logoutFunc },
     { text=tr('Cancel'), callback=cancelFunc },
-    anchor=AnchorHorizontalCenter }, logoutFunc, cancelFunc)
+  }, logoutFunc, cancelFunc)
 
   return true
 end
@@ -239,7 +239,7 @@ function tryLogout(prompt)
       end
     end
   else
-    msg = 'Are you sure you want to logout?'
+    msg = 'Are you sure you want to leave Tibia?'
 
     yesCallback = function()
       g_game.safeLogout()
@@ -256,10 +256,10 @@ function tryLogout(prompt)
   end
 
   if prompt then
-    logoutWindow = displayGeneralBox(tr('Logout'), tr(msg), {
+    logoutWindow = displayGeneralBox(tr('Warning'), tr(msg), {
       { text=tr('Yes'), callback=yesCallback },
       { text=tr('No'), callback=noCallback },
-      anchor=AnchorHorizontalCenter}, yesCallback, noCallback)
+    }, yesCallback, noCallback)
   else
      yesCallback()
   end

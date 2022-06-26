@@ -13,8 +13,8 @@ Module
     - game_console
     - game_outfit
     - game_healthinfo
-    - game_skills
     - game_inventory
+    - game_skills
     - game_containers
     - game_viplist
     - game_battle

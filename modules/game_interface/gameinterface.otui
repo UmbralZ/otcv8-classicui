@@ -3,7 +3,7 @@ GameSidePanel < UIMiniWindowContainer
   image-border: 4
   padding: 3
   padding-top: 0
-  width: 198
+  width: 180
   focusable: false
   on: true
   layout:

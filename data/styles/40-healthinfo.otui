@@ -41,7 +41,7 @@ CapLabel < GameLabel
     height: 0
 
 ConditionWidget < UIWidget
-  size: 18 18
+  size: 9 9
 
   $!first:
     margin-left: 2
@@ -106,42 +106,3 @@ HealthOverlay < UIWidget
     opacity: 0.4
     image-color: #0000FFFF
     phantom: true
-  
-HealthInfoWindow < MiniWindow
-  icon: /images/topbuttons/healthinfo
-  !text: tr('Health Info')
-  height: 123
-
-  MiniWindowContents
-    HealthBar
-      id: healthBar
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.right: parent.right
-      margin: 2
-      margin-top: 1
-      
-    ManaBar
-      id: manaBar
-      anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
-      margin: 2
-      
-    ExperienceBar
-    Panel
-      id: conditionPanel
-      layout:
-        type: horizontalBox
-      height: 22
-      margin-top: 4
-      padding: 2
-      anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
-      border-width: 1
-      border-color: #00000077
-      background-color: #ffffff11
-    SoulLabel
-    CapLabel
-

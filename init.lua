@@ -1,7 +1,16 @@
 -- CONFIG
 APP_NAME = "otclientv8"  -- important, change it, it's name for config dir and files in appdata
 APP_VERSION = 1341       -- client version for updater and login to identify outdated client
-DEFAULT_LAYOUT = "retro" -- on android it's forced to "mobile", check code bellow
+DEFAULT_LAYOUT = "default" -- on android it's forced to "mobile", check code bellow
+
+-- servers shown in enter game list
+SERVER_LIST = {
+  {
+    host = '127.0.0.1',
+    name = "localhost",
+    port = 7171,
+  },
+}
 
 -- If you don't use updater or other service, set it to updater = ""
 Services = {

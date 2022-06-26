@@ -1,5 +1,4 @@
 battleWindow = nil
-battleButton = nil
 battlePanel = nil
 filterPanel = nil
 toggleFilterButton = nil
@@ -17,8 +16,7 @@ local ages = {}
 
 function init()  
   g_ui.importStyle('battlebutton')
-  battleButton = modules.client_topmenu.addRightGameToggleButton('battleButton', tr('Battle') .. ' (Ctrl+B)', '/images/topbuttons/battle', toggle, false, 2)
-  battleButton:setOn(true)
+
   battleWindow = g_ui.loadUI('battle', modules.game_interface.getRightPanel())
   g_keyboard.bindKeyDown('Ctrl+B', toggle)
 
@@ -92,7 +90,6 @@ function terminate()
   battleButtons = {}
   
   g_keyboard.unbindKeyDown('Ctrl+B')
-  battleButton:destroy()
   battleWindow:destroy()
   mouseWidget:destroy()
 	
@@ -112,17 +109,17 @@ function terminate()
 end
 
 function toggle()
-  if battleButton:isOn() then
+  if modules.game_inventory.battleButton:isOn() then
     battleWindow:close()
-    battleButton:setOn(false)
+    modules.game_inventory.battleButton:setOn(false)
   else
     battleWindow:open()
-    battleButton:setOn(true)
+    modules.game_inventory.battleButton:setOn(true)
   end
 end
 
 function onMiniWindowClose()
-  battleButton:setOn(false)
+  modules.game_inventory.battleButton:setOn(false)
 end
 
 function getSortType()
@@ -283,7 +280,7 @@ function checkCreatures()
   for i=#creatures + 1,maxCreatures do
     if battleButtons[i]:isHidden() then break end
     battleButtons[i]:hide()
-    battleButton:setOn(false)
+    modules.game_inventory.battleButton:setOn(false)
   end
 
   battlePanel:getLayout():enableUpdates()

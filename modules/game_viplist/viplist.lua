@@ -1,5 +1,4 @@
 vipWindow = nil
-vipButton = nil
 addVipWindow = nil
 editVipWindow = nil
 vipInfo = {}
@@ -13,8 +12,6 @@ function init()
 
   g_keyboard.bindKeyDown('Ctrl+P', toggle)
 
-  vipButton = modules.client_topmenu.addRightGameToggleButton('vipListButton', tr('VIP List') .. ' (Ctrl+P)', '/images/topbuttons/viplist', toggle, false, 3)
-  vipButton:setOn(true)
   vipWindow = g_ui.loadUI('viplist', modules.game_interface.getRightPanel())
 
   if not g_game.getFeature(GameAdditionalVipInfo) then
@@ -44,7 +41,6 @@ function terminate()
   end
 
   vipWindow:destroy()
-  vipButton:destroy()
 end
 
 function loadVipInfo()
@@ -78,17 +74,17 @@ function clear()
 end
 
 function toggle()
-  if vipButton:isOn() then
+  if modules.game_inventory.vipButton:isOn() then
     vipWindow:close()
-    vipButton:setOn(false)
+    modules.game_inventory.vipButton:setOn(false)
   else
     vipWindow:open()
-    vipButton:setOn(true)
+    modules.game_inventory.vipButton:setOn(true)
   end
 end
 
 function onMiniWindowClose()
-  vipButton:setOn(false)
+  modules.game_inventory.vipButton:setOn(false)
 end
 
 function createAddWindow()

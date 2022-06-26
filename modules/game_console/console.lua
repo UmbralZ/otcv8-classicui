@@ -113,9 +113,9 @@ function init()
   })
 
   consolePanel = g_ui.loadUI('console', modules.game_interface.getBottomPanel())
-  consoleTextEdit = consolePanel:getChildById('consoleTextEdit')
-  consoleContentPanel = consolePanel:getChildById('consoleContentPanel')
-  consoleTabBar = consolePanel:getChildById('consoleTabBar')
+  consoleTextEdit = consolePanel:recursiveGetChildById('consoleTextEdit')
+  consoleContentPanel = consolePanel:recursiveGetChildById('consoleContentPanel')
+  consoleTabBar = consolePanel:recursiveGetChildById('consoleTabBar')
   consoleTabBar:setContentWidget(consoleContentPanel)
   channels = {}
     
@@ -132,7 +132,7 @@ function init()
     local tab = consoleTabBar:getCurrentTab()
     if not tab then return false end
 
-    local selection = tab.tabPanel:getChildById('consoleBuffer').selectionText
+    local selection = tab.tabPanel:recursiveGetChildById('consoleBuffer').selectionText
     if not selection then return false end
 
     g_window.setClipboardText(selection)
@@ -155,8 +155,9 @@ function init()
   g_keyboard.bindKeyDown('Ctrl+O', g_game.requestChannels, gameRootPanel)
   g_keyboard.bindKeyDown('Ctrl+E', removeCurrentTab, gameRootPanel)
   g_keyboard.bindKeyDown('Ctrl+H', openHelp, gameRootPanel)
+  g_keyboard.bindKeyDown('Ctrl+I', onClickIgnoreButton, gameRootPanel)
 
-  consoleToggleChat = consolePanel:getChildById('toggleChat')
+  consoleToggleChat = consolePanel:recursiveGetChildById('toggleChat')
   load()
 
   if g_game.isOnline() then
@@ -281,6 +282,7 @@ function terminate()
   g_keyboard.unbindKeyDown('Ctrl+O', gameRootPanel)
   g_keyboard.unbindKeyDown('Ctrl+E', gameRootPanel)
   g_keyboard.unbindKeyDown('Ctrl+H', gameRootPanel)
+  g_keyboard.unbindKeyDown('Ctrl+I', gameRootPanel)
 
   saveCommunicationSettings()
 
@@ -324,9 +326,9 @@ end
 
 function onTabChange(tabBar, tab)
   if tab == defaultTab or tab == serverTab then
-    consolePanel:getChildById('closeChannelButton'):disable()
+    consolePanel:recursiveGetChildById('closeChannelButton'):hide()
   else
-    consolePanel:getChildById('closeChannelButton'):enable()
+    consolePanel:recursiveGetChildById('closeChannelButton'):show()
   end
 end
 
@@ -947,7 +949,7 @@ function sendMessage(message, tab)
   local speaktypedesc
   if (channel or tab == defaultTab) and not chatCommandPrivateReady then
     if tab == defaultTab then
-      speaktypedesc = chatCommandSayMode or SayModes[consolePanel:getChildById('sayModeButton').sayMode].speakTypeDesc
+      speaktypedesc = chatCommandSayMode or SayModes[consolePanel:recursiveGetChildById('sayModeButton').sayMode].speakTypeDesc
       if speaktypedesc ~= 'say' then sayModeChange(2) end -- head back to say mode
     else
       speaktypedesc = chatCommandSayMode or 'channelYellow'
@@ -994,7 +996,7 @@ function sendMessage(message, tab)
 end
 
 function sayModeChange(sayMode)
-  local buttom = consolePanel:getChildById('sayModeButton')
+  local buttom = consolePanel:recursiveGetChildById('sayModeButton')
   if sayMode == nil then
     sayMode = buttom.sayMode + 1
   end
@@ -1353,9 +1355,9 @@ function onClickIgnoreButton()
   local whiteListPanel = communicationWindow:getChildById('whiteList')
   communicationWindow.onDestroy = function() communicationWindow = nil end
 
-  local useIgnoreListBox = communicationWindow:getChildById('checkboxUseIgnoreList')
+  local useIgnoreListBox = communicationWindow:recursiveGetChildById('checkboxUseIgnoreList')
   useIgnoreListBox:setChecked(communicationSettings.useIgnoreList)
-  local useWhiteListBox = communicationWindow:getChildById('checkboxUseWhiteList')
+  local useWhiteListBox = communicationWindow:recursiveGetChildById('checkboxUseWhiteList')
   useWhiteListBox:setChecked(communicationSettings.useWhiteList)
 
   local removeIgnoreButton = communicationWindow:getChildById('buttonIgnoreRemove')
@@ -1420,11 +1422,11 @@ function onClickIgnoreButton()
       end
     end
 
-  local ignorePrivateMessageBox = communicationWindow:getChildById('checkboxIgnorePrivateMessages')
+  local ignorePrivateMessageBox = communicationWindow:recursiveGetChildById('checkboxIgnorePrivateMessages')
   ignorePrivateMessageBox:setChecked(communicationSettings.privateMessages)
-  local ignoreYellingBox = communicationWindow:getChildById('checkboxIgnoreYelling')
+  local ignoreYellingBox = communicationWindow:recursiveGetChildById('checkboxIgnoreYelling')
   ignoreYellingBox:setChecked(communicationSettings.yelling)
-  local allowVIPsBox = communicationWindow:getChildById('checkboxAllowVIPs')
+  local allowVIPsBox = communicationWindow:recursiveGetChildById('checkboxAllowVIPs')
   allowVIPsBox:setChecked(communicationSettings.allowVIPs)
 
   local saveButton = communicationWindow:recursiveGetChildById('buttonSave')

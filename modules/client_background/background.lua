@@ -1,15 +1,19 @@
 -- private variables
 local background
 local clientVersionLabel
+local infoWindow
 
 -- public functions
 function init()
   background = g_ui.displayUI('background')
   background:lower()
 
+  infoWindow = g_ui.createWidget('InfoWindow', background)
+  infoWindow:hide()
+
   clientVersionLabel = background:getChildById('clientVersionLabel')
   clientVersionLabel:setText('OTClientV8 ' .. g_app.getVersion() .. '\nrev ' .. g_app.getBuildRevision() .. '\nMade by:\n' .. g_app.getAuthor() .. "")
-  
+ 
   if not g_game.isOnline() then
     addEvent(function() g_effects.fadeIn(clientVersionLabel, 1500) end)
   end
@@ -25,6 +29,9 @@ function terminate()
   g_effects.cancelFade(background:getChildById('clientVersionLabel'))
   background:destroy()
 
+  infoWindow:destroy()
+  infoWindow = nil
+
   Background = nil
 end
 
@@ -34,6 +41,12 @@ end
 
 function show()
   background:show()
+end
+
+function showInfoWindow()
+  if not infoWindow:isVisible() then
+   infoWindow:show()
+  end
 end
 
 function hideVersionLabel()

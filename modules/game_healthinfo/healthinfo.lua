@@ -88,11 +88,12 @@ function init()
     onFreeCapacityChange(localPlayer, localPlayer:getFreeCapacity())
   end
 
+  healthInfoWindow:setup()
 
   hideLabels()
   hideExperience()
 
-  healthInfoWindow:setup()
+  healthInfoWindow:setHeight(34)
   
   if g_app.isMobile() then
     healthInfoWindow:close()
@@ -165,7 +166,9 @@ function onHealthChange(localPlayer, health, maxHealth)
     maxHealth = health
   end
 
-  healthBar:setText(comma_value(health) .. ' / ' .. comma_value(maxHealth))
+  healthInfoWindow:recursiveGetChildById("healthLabel"):setText(comma_value(health))
+
+  --healthBar:setText(comma_value(health) .. ' / ' .. comma_value(maxHealth))
   healthBar:setTooltip(tr(healthTooltip, health, maxHealth))
   healthBar:setValue(health, 0, maxHealth)
 
@@ -199,7 +202,9 @@ function onManaChange(localPlayer, mana, maxMana)
     maxMana = mana
   end
   
-  manaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
+  healthInfoWindow:recursiveGetChildById("manaLabel"):setText(comma_value(mana))
+
+  --manaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
   manaBar:setTooltip(tr(manaTooltip, mana, maxMana))
   manaBar:setValue(mana, 0, maxMana)
 

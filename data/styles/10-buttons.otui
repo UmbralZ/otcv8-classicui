@@ -1,21 +1,22 @@
 Button < UIButton
-  font: verdana-11px-antialised
+  font: cipsoftFont
   color: #dfdfdfff
-  size: 106 23
+  size: 46 20
   text-offset: 0 1
   image-source: /images/ui/button
-  image-color: #dfdfdf
   image-clip: 0 0 22 23
   image-border: 3
-  padding: 5 10 5 10
+  padding: 10
   opacity: 1.0
-  change-cursor-image: true
-  cursor: pointer
 
   $hover !disabled:
     image-clip: 0 23 22 23
 
   $pressed:
+    image-clip: 0 46 22 23
+    text-offset: 1 1
+  
+  $on:
     image-clip: 0 46 22 23
     text-offset: 1 1
 

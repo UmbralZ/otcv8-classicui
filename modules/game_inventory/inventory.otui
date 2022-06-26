@@ -1,6 +1,319 @@
-InventoryWindow
+InventoryItem < Item
+  $on:
+    image-source: /images/ui/item-blessed
+
+HeadSlot < InventoryItem
+  id: slot1
+  image-source: /images/game/slots/head
+  &position: {x=65535, y=1, z=0}
+  $on:
+    image-source: /images/game/slots/head-blessed
+
+BodySlot < InventoryItem
+  id: slot4
+  image-source: /images/game/slots/body
+  &position: {x=65535, y=4, z=0}
+  $on:
+    image-source: /images/game/slots/body-blessed
+
+LegSlot < InventoryItem
+  id: slot7
+  image-source: /images/game/slots/legs
+  &position: {x=65535, y=7, z=0}
+  $on:
+    image-source: /images/game/slots/legs-blessed
+
+FeetSlot < InventoryItem
+  id: slot8
+  image-source: /images/game/slots/feet
+  &position: {x=65535, y=8, z=0}
+  $on:
+    image-source: /images/game/slots/feet-blessed
+
+NeckSlot < InventoryItem
+  id: slot2
+  image-source: /images/game/slots/neck
+  &position: {x=65535, y=2, z=0}
+  $on:
+    image-source: /images/game/slots/neck-blessed
+
+LeftSlot < InventoryItem
+  id: slot6
+  image-source: /images/game/slots/left-hand
+  &position: {x=65535, y=6, z=0}
+  $on:
+    image-source: /images/game/slots/left-hand-blessed
+
+FingerSlot < InventoryItem
+  id: slot9
+  image-source: /images/game/slots/finger
+  &position: {x=65535, y=9, z=0}
+  $on:
+    image-source: /images/game/slots/finger-blessed
+
+BackSlot < InventoryItem
+  id: slot3
+  image-source: /images/game/slots/back
+  &position: {x=65535, y=3, z=0}
+  $on:
+    image-source: /images/game/slots/back-blessed
+
+RightSlot < InventoryItem
+  id: slot5
+  image-source: /images/game/slots/right-hand
+  &position: {x=65535, y=5, z=0}
+  $on:
+    image-source: /images/game/slots/right-hand-blessed
+
+AmmoSlot < InventoryItem
+  id: slot10
+  image-source: /images/game/slots/ammo
+  &position: {x=65535, y=10, z=0}
+  $on:
+    image-source: /images/game/slots/ammo-blessed
+
+PurseButton < UIButton
+  id: purseButton
+  size: 34 12
+  !tooltip: tr('Open purse')
+  icon-source: /images/game/slots/purse
+  icon-clip: 0 0 34 12
+  
+  $on:
+    icon-clip: 0 12 34 12
+
+  $pressed:
+    icon-clip: 0 12 34 12
+
+CombatBox < UICheckBox
+  size: 20 20
+  image-clip: 0 0 20 20
+
+  $checked:
+    image-clip: 0 20 20 20
+
+InventoryButton < Button
+  height: 18
+  margin-top: 2
+  text-align: center
+
+SoulCapLabel < GameLabel
+  text-align: center
+  font: cipsoftFont
+  margin-top: 4
+  text-offset: 0 3
+  width: 36
+  height: 20
+  icon-source: /images/game/slots/soulcap
+      
+FightOffensiveBox < CombatBox
+  image-source: /images/game/combatmodes/fightoffensive
+FightBalancedBox < CombatBox
+  image-source: /images/game/combatmodes/fightbalanced
+FightDefensiveBox < CombatBox
+  image-source: /images/game/combatmodes/fightdefensive
+SafeFightBox < CombatBox
+  image-source: /images/game/combatmodes/safefight
+
+MountButton < CombatBox
+  image-source: /images/game/combatmodes/mount    
+
+NonClosableMiniWindow
+  height: 200
   id: inventoryWindow
-  !text: tr('Inventory')
   @onClose: modules.game_inventory.onMiniWindowClose()
   &save: true
   &autoOpen: 3
+
+  NonClosableMiniWindowContents  
+    NeckSlot
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-top: 13
+      margin-right: 5
+      margin-left: 5
+
+    LeftSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      anchors.left: prev.left
+      margin-top: 3
+
+    FingerSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      anchors.left: prev.left
+      margin-top: 3
+    
+    HeadSlot
+      anchors.top: parent.top
+      anchors.left: slot2.right
+      margin-top: 3
+      margin-left: 4
+
+    BodySlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+
+    LegSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+
+    FeetSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+    
+    BackSlot
+      anchors.top: slot2.top
+      anchors.left: slot1.right
+      margin-left: 4
+
+    RightSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+
+    AmmoSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+
+    SoulCapLabel
+      id: capLabel
+      anchors.top: slot10.bottom
+      anchors.horizontalCenter: slot10.horizontalCenter
+      
+    SoulCapLabel
+      id: soulLabel
+      anchors.top: slot9.bottom
+      anchors.horizontalCenter: slot9.horizontalCenter
+
+    PurseButton
+      anchors.left: slot3.left
+      anchors.bottom: slot3.top        
+      margin-bottom: 3
+
+    Panel
+      id: conditionPanel
+      image-source: /images/ui/conditionPanel
+      layout:
+        type: horizontalBox
+      height: 14
+      padding: 2
+      anchors.top: slot8.bottom
+      anchors.left: slot6.left
+      anchors.right: slot5.right
+      margin-top: 2
+
+    FightOffensiveBox
+      id: fightOffensiveBox
+      anchors.left: slot3.right
+      anchors.top: slot3.top
+      margin-left: 8
+
+    FightBalancedBox
+      id: fightBalancedBox
+      anchors.left: prev.left
+      anchors.top: prev.bottom
+      margin-top: 2
+
+    FightDefensiveBox
+      id: fightDefensiveBox
+      anchors.left: prev.left
+      anchors.top: prev.bottom
+      margin-top: 2
+    
+    CombatBox
+      id: chaseModeBoxStand
+      image-source: /images/game/combatmodes/standmode
+      anchors.left: fightOffensiveBox.right
+      anchors.top: fightOffensiveBox.top
+      margin-left: 4
+    
+    CombatBox
+      id: chaseModeBoxChase
+      image-source: /images/game/combatmodes/chasemode
+      anchors.left: prev.left
+      anchors.top: prev.bottom
+      margin-top: 2
+  
+    SafeFightBox
+      id: safeFightBox
+      anchors.left: prev.left
+      anchors.top: prev.bottom
+      margin-top: 2
+      
+    MountButton
+      id: mountButton
+      margin-top: 44
+      anchors.left: prev.right
+      anchors.top: parent.top
+
+    InventoryButton
+      !text: tr('Stop')
+      anchors.top: fightDefensiveBox.bottom
+      anchors.left: fightDefensiveBox.left
+      anchors.right: safeFightBox.right
+      margin-top: 2
+      @onClick: g_game.stop() g_game.cancelAttackAndFollow()
+
+    InventoryButton
+      !text: tr('Options')
+      anchors.top: prev.bottom
+      anchors.left: prev.left
+      anchors.right: prev.right
+      margin-top: 5
+      @onClick: modules.client_options.toggle()
+    
+    InventoryButton
+      id: help
+      !text: tr('Help')
+      anchors.top: prev.bottom
+      anchors.left: prev.left
+      anchors.right: prev.right
+      margin-top: 2
+    
+    InventoryButton
+      id: skillsButton
+      !text: tr('Skills')
+      anchors.left: conditionPanel.left
+      anchors.top: conditionPanel.bottom
+      margin-top: 10
+      width: 34
+      height: 20
+      @onClick: modules.game_skills.toggle()
+    
+    InventoryButton
+      id: battleButton
+      !text: tr('Battle')
+      anchors.left: prev.right
+      anchors.top: prev.top
+      margin-left: 5
+      margin-top: 0
+      width: 34
+      height: 20
+      @onClick: modules.game_battle.toggle()
+
+    InventoryButton
+      id: vipButton
+      !text: tr('VIP')
+      anchors.left: prev.right
+      anchors.top: prev.top
+      anchors.right: conditionPanel.right
+      margin-left: 5
+      margin-top: 0
+      height: 20
+      @onClick: modules.game_viplist.toggle()
+
+    InventoryButton
+      !text: tr('Logout')
+      anchors.left: help.left
+      anchors.top: prev.top
+      anchors.right: help.right
+      width: 34
+      height: 20
+      margin-top: 0
+      @onClick: modules.game_interface.tryLogout()

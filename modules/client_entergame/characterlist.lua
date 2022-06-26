@@ -257,22 +257,7 @@ function CharacterList.create(characters, account, otui)
   local focusLabel
   for i,characterInfo in ipairs(characters) do
     local widget = g_ui.createWidget('CharacterWidget', characterList)
-    for key,value in pairs(characterInfo) do
-      local subWidget = widget:getChildById(key)
-      if subWidget then
-        if key == 'outfit' then -- it's an exception
-          subWidget:setOutfit(value)
-        else
-          local text = value
-          if subWidget.baseText and subWidget.baseTranslate then
-            text = tr(subWidget.baseText, text)
-          elseif subWidget.baseText then
-            text = string.format(subWidget.baseText, text)
-          end
-          subWidget:setText(text)
-        end
-      end
-    end
+    widget:getChildById("name"):setText(characterInfo.name .. " (" .. characterInfo.worldName .. ")")
 
     -- these are used by login
     widget.characterName = characterInfo.name

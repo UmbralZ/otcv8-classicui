@@ -1,155 +1,59 @@
-EnterGameWindow
+EnterGameLabel < Label
+  text: Test
+  text-auto-resize: true
+  font: verdana-11px-antialised
+
+EnterGameButton < Button
+  size: 46 20
+
+MainWindow
   id: enterGame
+  !text: tr('Enter Game')
+  size: 244 185
   @onEnter: EnterGame.doLogin()
 
-  MenuLabel
-    !text: tr('Account name')
-    anchors.left: parent.left
+  EnterGameLabel
+    text: Account number:
     anchors.top: parent.top
-    text-auto-resize: true
-
-  TextEdit
-    id: accountNameTextEdit
     anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 2
 
-  MenuLabel
-    !text: tr('Password')
-    anchors.left: prev.left
+  PasswordTextEdit
+    id: accountNameTextEdit
+    anchors.left: prev.right
+    anchors.right: parent.right
+    anchors.top: prev.top
+    margin-left: 10
+    margin-right: 5
+
+  EnterGameLabel
+    !text: tr('Password:')
+    anchors.left: parent.left
     anchors.top: prev.bottom
-    margin-top: 8
-    text-auto-resize: true
+    margin-top: 15
 
   PasswordTextEdit
     id: accountPasswordTextEdit
-    anchors.left: parent.left
+    anchors.left: accountNameTextEdit.left
     anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 2
-    
-  MenuLabel
-    !text: tr('Token')
-    anchors.left: prev.left
-    anchors.top: prev.bottom
-    text-auto-resize: true
-    margin-top: 8
-
-  TextEdit
-    id: accountTokenTextEdit
+    anchors.top: prev.top
+    margin-right: 5
+  
+  EnterGameLabel
+    !text: tr('Server:')
     anchors.left: parent.left
-    anchors.right: parent.right
     anchors.top: prev.bottom
-    margin-top: 2
+    margin-top: 15
 
-  Panel
-    id: serverSelectorPanel
-    anchors.left: parent.left
+  ComboBox
+    id: serverComboBox
+    anchors.left: accountNameTextEdit.left
+    anchors.top: prev.top
     anchors.right: parent.right
-    anchors.top: prev.bottom
-    height: 52
-    on: true
-    focusable: false
-    
-    $on:
-      visible: true
-      margin-top: 0
-    
-    $!on:
-      visible: false
-      margin-top: -52
-      
-    HorizontalSeparator
-      anchors.left: parent.left
-      anchors.right: parent.right
-      anchors.top: parent.top
-      margin-top: 10
-
-    MenuLabel
-      id: serverLabel
-      !text: tr('Server')
-      anchors.left: parent.left
-      anchors.top: prev.bottom
-      text-auto-resize: true    
-      margin-top: 5
-
-    ComboBox
-      id: serverSelector
-      anchors.left: prev.left
-      anchors.right: parent.right
-      anchors.top: serverLabel.bottom
-      margin-top: 2
-      margin-right: 3
-      menu-scroll: true
-      menu-height: 125
-      menu-scroll-step: 25
-      text-offset: 5 2
-      @onOptionChange: EnterGame.onServerChange()
-    
-  Panel
-    id: customServerSelectorPanel
-    anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.top: prev.bottom
-    height: 52
-    on: true
-    focusable: true
-    
-    $on:
-      visible: true
-      margin-top: 0
-    
-    $!on:
-      visible: false
-      margin-top: -52
-    
-    HorizontalSeparator
-      anchors.left: parent.left
-      anchors.right: parent.right
-      anchors.top: parent.top
-      margin-top: 8
-
-    MenuLabel
-      id: serverLabel
-      !text: tr('IP:PORT or URL')
-      anchors.left: prev.left
-      anchors.top: prev.bottom
-      margin-top: 8
-      text-auto-resize: true
-
-    TextEdit
-      id: serverHostTextEdit
-      !tooltip: tr('Make sure that your client uses\nthe correct game client version')
-      anchors.left: parent.left
-      anchors.top: serverLabel.bottom
-      margin-top: 2
-      width: 150
-
-    MenuLabel
-      id: clientLabel
-      !text: tr('Version')
-      anchors.left: serverHostTextEdit.right
-      anchors.top: serverLabel.top
-      text-auto-resize: true
-      margin-left: 10
-
-    ComboBox
-      id: clientVersionSelector
-      anchors.top: serverHostTextEdit.top
-      anchors.bottom: serverHostTextEdit.bottom
-      anchors.left: prev.left
-      anchors.right: parent.right
-      menu-scroll: true
-      menu-height: 125
-      menu-scroll-step: 25
-      margin-right: 3
-      
-  HorizontalSeparator
-    anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 10
+    @onOptionChange: EnterGame.onServerChange()
+    @onSetup: |
+      for _, server in ipairs(SERVER_LIST) do
+        self:addOption(server.name or server.host, server)
+      end
 
   CheckBox
     id: rememberPasswordBox
@@ -158,7 +62,7 @@ EnterGameWindow
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.top: prev.bottom
-    margin-top: 9
+    margin-top: 10
 
   HorizontalSeparator
     anchors.left: parent.left
@@ -166,15 +70,19 @@ EnterGameWindow
     anchors.top: prev.bottom
     margin-top: 9
 
-  Button
-    !text: tr('Login')
-    anchors.left: parent.left
+  EnterGameButton
+    !text: tr('Cancel')
     anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 10
-    margin-left: 50
-    margin-right: 50
+    anchors.bottom: parent.bottom
+    @onClick: EnterGame.hide()
+    margin-bottom: -4
+
+  EnterGameButton
+    !text: tr('Ok')
+    anchors.right: prev.left
+    anchors.top: prev.top
     @onClick: EnterGame.doLogin()
+    margin-right: 10
 
   Label
     id: serverInfoLabel
