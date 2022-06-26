@@ -7,7 +7,7 @@ TextWindow < MainWindow
     virtual: true
     anchors.top: parent.top
     anchors.left: parent.left
-    background-color: transparent
+    image-source: 
     margin-top: -10
   
   Label

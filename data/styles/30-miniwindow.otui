@@ -4,17 +4,19 @@ MiniWindow < UIMiniWindow
   icon-rect: 4 4 13 13
   width: 192
   height: 200
-  text-offset: 20 3
+  text-offset: 20 2
   text-align: topLeft
-  image-source: /images/ui/miniwindow
+  image-source: /images/ui/window
   image-border: 4
   image-border-top: 23
   image-border-bottom: 4
   focusable: false
-  &minimizedHeight: 24
+  &minimizedHeight: 18
+  icon-offset-y: -2
 
   $on:
-    image-border-bottom: 2
+    image-border-bottom: 10
+    image-border: 1
 
   UIWidget
     id: miniwindowTopBar
@@ -47,7 +49,6 @@ MiniWindow < UIMiniWindow
     id: minimizeButton
     anchors.top: closeButton.top
     anchors.right: closeButton.left
-    margin-right: 1
     size: 14 14
     image-source: /images/ui/miniwindow_buttons
     image-clip: 0 0 14 14
@@ -71,25 +72,24 @@ MiniWindow < UIMiniWindow
     id: lockButton
     anchors.top: minimizeButton.top
     anchors.right: minimizeButton.left
-    margin-right: 1
     size: 14 14
     image-source: /images/ui/miniwindow_buttons
-    image-clip: 112 0 14 14
+    image-clip: 98 0 14 14
 
     $hover:
-      image-clip: 112 14 14 14
-
-    $pressed:
-    image-clip: 112 28 14 14
-
-    $on:
-      image-clip: 98 0 14 14
-
-    $on hover:
       image-clip: 98 14 14 14
 
-    $on pressed:
+    $pressed:
       image-clip: 98 28 14 14
+
+    $on:
+      image-clip: 84 0 14 14
+
+    $on hover:
+      image-clip: 84 14 14 14
+
+    $on pressed:
+      image-clip: 84 28 14 14
 
   VerticalScrollBar
     id: miniwindowScrollBar

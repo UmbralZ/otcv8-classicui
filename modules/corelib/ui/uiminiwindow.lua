@@ -34,6 +34,12 @@ function UIMiniWindow:minimize(dontSave)
   self:getChildById('contentsPanel'):hide()
   self:getChildById('miniwindowScrollBar'):hide()
   self:getChildById('bottomResizeBorder'):hide()
+
+  local miniborder = self:recursiveGetChildById("miniborder")
+  if miniborder then
+    miniborder:hide()
+  end
+
   if self.minimizeButton then
     self.minimizeButton:setOn(true)
   end
@@ -52,6 +58,12 @@ function UIMiniWindow:maximize(dontSave)
   self:getChildById('contentsPanel'):show()
   self:getChildById('miniwindowScrollBar'):show()
   self:getChildById('bottomResizeBorder'):show()
+
+  local miniborder = self:recursiveGetChildById("miniborder")
+  if miniborder then
+    miniborder:show()
+  end
+
   if self.minimizeButton then
     self.minimizeButton:setOn(false)
   end
