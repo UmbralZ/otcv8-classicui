@@ -95,7 +95,6 @@ MainWindow
     width: 100
     anchors.left: parent.left
     anchors.bottom: parent.bottom
-    margin-bottom: -5
     
     $!on:
       image-color: red    
@@ -111,13 +110,11 @@ MainWindow
     anchors.right: next.left
     anchors.bottom: parent.bottom
     margin-right: 10
-    margin-bottom: -5
     @onClick: CharacterList.doLogin()
 
   EnterGameButton
     id: buttonCancel
     !text: tr('Cancel')
     anchors.right: parent.right
-    margin-bottom: -5
     anchors.bottom: parent.bottom
     @onClick: CharacterList.hide(true)

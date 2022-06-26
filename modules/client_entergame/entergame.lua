@@ -454,8 +454,8 @@ function EnterGame.doLogin(account, password, token, host)
   G.stayLogged = true
   --G.server = serverSelector:getText():trim()
   G.host = host or server.data.host
-  G.clientVersion = "772"
- 
+  G.clientVersion = server.data.protocol
+
   if not rememberPasswordBox:isChecked() then
     g_settings.set('account', G.account)
     g_settings.set('password', G.password)

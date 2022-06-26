@@ -75,7 +75,6 @@ MainWindow
     anchors.right: parent.right
     anchors.bottom: parent.bottom
     @onClick: EnterGame.hide()
-    margin-bottom: -4
 
   EnterGameButton
     !text: tr('Ok')
