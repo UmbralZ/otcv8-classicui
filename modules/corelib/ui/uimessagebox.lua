@@ -16,21 +16,23 @@ function UIMessageBox.display(title, message, buttons, onEnterCallback, onEscape
   local messageLabel = g_ui.createWidget('MessageBoxLabel', messageBox)
   messageLabel:setText(message)
 
-  local separator = g_ui.createWidget('HorizontalSeparator', messageBox)
-  separator:addAnchor(AnchorTop, 'prev', AnchorBottom)
-  separator:addAnchor(AnchorLeft, 'parent', AnchorLeft)
-  separator:addAnchor(AnchorRight, 'parent', AnchorRight)
-  separator:setMarginTop(25)
-
   local buttonsWidth = 0
   local buttonsHeight = 0
+
+  local separator
+  if #buttons > 0 then
+    separator = g_ui.createWidget('HorizontalSeparator', messageBox)
+    separator:addAnchor(AnchorTop, 'prev', AnchorBottom)
+    separator:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+    separator:addAnchor(AnchorRight, 'parent', AnchorRight)
+    separator:setMarginTop(25)
+  end
 
   local anchor = AnchorRight
   if buttons.anchor then anchor = buttons.anchor end
 
   local buttonHolder = g_ui.createWidget('MessageBoxButtonHolder', messageBox)
   buttonHolder:addAnchor(anchor, 'parent', anchor)
-  --buttonHolder:addAnchor(AnchorTop, 'prev', AnchorBottom)
 
   for i=1,#buttons do
     local button = messageBox:addButton(buttons[i].text, buttons[i].callback)
@@ -51,8 +53,13 @@ function UIMessageBox.display(title, message, buttons, onEnterCallback, onEscape
   if onEnterCallback then connect(messageBox, { onEnter = onEnterCallback }) end
   if onEscapeCallback then connect(messageBox, { onEscape = onEscapeCallback }) end
 
+  local height = messageLabel:getHeight() + messageBox:getPaddingTop() + messageBox:getPaddingBottom() + buttonHolder:getHeight() + buttonHolder:getMarginTop()
+  if separator then
+    height = height + separator:getHeight() + separator:getMarginTop()
+  end
+
   messageBox:setWidth(math.max(messageLabel:getWidth(), messageBox:getTextSize().width, buttonHolder:getWidth()) + messageBox:getPaddingLeft() + messageBox:getPaddingRight())
-  messageBox:setHeight(messageLabel:getHeight() + messageBox:getPaddingTop() + messageBox:getPaddingBottom() + buttonHolder:getHeight() + buttonHolder:getMarginTop() + separator:getHeight() + separator:getMarginTop())
+  messageBox:setHeight(height)
   return messageBox
 end
 

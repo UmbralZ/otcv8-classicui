@@ -9,6 +9,7 @@ SERVER_LIST = {
     host = '127.0.0.1',
     name = "localhost",
     port = 7171,
+    protocol = 772,
   },
 }
 
