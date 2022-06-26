@@ -23,4 +23,5 @@ MiniWindow
     layout: verticalBox
     padding-left: 5
     padding-right: 5
+    margin-top: 15
     &onMousePress: modules.game_viplist.onVipListMousePress

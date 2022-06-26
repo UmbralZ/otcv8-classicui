@@ -1,5 +1,5 @@
 MainWindow
-  size: 256 128
+  size: 256 120
   !text: tr('Add to VIP list')
   @onEnter: modules.game_viplist.addVip()
   @onEscape: modules.game_viplist.destroyAddWindow()
@@ -24,8 +24,7 @@ MainWindow
     margin-bottom: 10
 
   Button
-    !text: tr('Ok')
-    width: 64
+    !text: tr('Add')
     anchors.right: next.left
     anchors.bottom: parent.bottom
     margin-right: 10
@@ -33,7 +32,6 @@ MainWindow
 
   Button
     !text: tr('Cancel')
-    width: 64
     anchors.right: parent.right
     anchors.bottom: parent.bottom
     @onClick: modules.game_viplist.destroyAddWindow()

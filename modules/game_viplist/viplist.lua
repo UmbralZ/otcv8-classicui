@@ -112,7 +112,7 @@ function createEditWindow(widget)
   local descriptionText = editVipWindow:getChildById('descriptionText')
   descriptionText:appendText(widget:getTooltip())
 
-  local notifyCheckBox = editVipWindow:getChildById('checkBoxNotify')
+  local notifyCheckBox = editVipWindow:recursiveGetChildById('checkBoxNotify')
   notifyCheckBox:setChecked(widget.notifyLogin)
 
   local iconRadioGroup = UIRadioGroup.create()
