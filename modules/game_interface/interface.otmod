@@ -26,21 +26,16 @@ Module
     - game_playerdeath
     - game_playermount
     - game_ruleviolation
-    - game_market
     - game_spelllist
     - game_cooldown
     - game_modaldialog
     - game_unjustifiedpoints
     - game_walking
-    - game_shop
     - game_itemselector
     - client_textedit
     - client_profiles
     - game_actionbar
-    - game_prey
-    - game_imbuing
     - game_stats
     - game_shaders
-    - game_bot
   @onLoad: init()
   @onUnload: terminate()
