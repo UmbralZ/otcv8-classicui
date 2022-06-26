@@ -610,7 +610,7 @@ OutfitWindow < MainWindow
       height: 117
       layout:
         type: grid
-        cell-size: 15 15
+        cell-size: 16 16
         cell-spacing: 2
         num-columns: 19
         num-lines: 7

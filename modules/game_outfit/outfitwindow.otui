@@ -3,4 +3,98 @@ FloorTile < UIWidget
   size: 32 32
   phantom: true
 
-OutfitWindow
+MainWindow
+  size: 420 225
+  text: Select Outfit
+  @onEnter: modules.game_outfit.accept()
+  @onEscape: modules.game_outfit.destroy()
+
+  UICreature
+    id: creature
+    anchors.left: parent.left
+    anchors.top: parent.top
+    margin-top: 5
+    size: 69 69
+    phantom: true
+    image-source: /images/ui/panel_flat
+    center: true
+  
+  Button
+    id: nextbtn
+    text: Next
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: prev.horizontalCenter
+    margin-top: 5
+    @onClick: modules.game_outfit.nextOutfit()
+  
+  Button
+    id: head
+    text: Head
+    anchors.top: creature.top
+    anchors.left: creature.right
+    margin-left: 15
+  
+  Button
+    id: body
+    text: Body
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    margin-top: 5
+  
+  Button
+    id: legs
+    text: Legs
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    margin-top: 5
+  
+  Button
+    id: feet
+    text: Feet
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    margin-top: 5
+  
+  Panel
+    id: colorBoxPanel
+    anchors.left: prev.right
+    anchors.right: parent.right
+    anchors.top: creature.top
+    margin-left: 15
+    height: 87
+    layout:
+      type: grid
+      cell-size: 11 11
+      cell-spacing: 2
+      num-columns: 19
+      num-lines: 7
+  
+  Label
+    anchors.top: nextbtn.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    text: Choose an outfit and determine the colours of the various parts of your character's body
+    text-wrap: true
+    text-auto-resize: true
+    opacity: 0.8
+  
+  HorizontalSeparator
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 15
+  
+  Button
+    text: Cancel
+    anchors.top: prev.bottom
+    anchors.right: parent.right
+    margin-top: 10
+    @onClick: modules.game_outfit.destroy()
+  
+  Button
+    text: Ok
+    anchors.top: prev.top
+    anchors.right: prev.left
+    margin-right: 10
+    @onClick: modules.game_outfit.accept()

@@ -5,11 +5,10 @@ PopupMenuButton < UIButton
   text-align: left
   font: verdana-11px-antialised
 
-  color: #aaaaaa
+  color: #ffffff
   background-color: alpha
 
   $hover !disabled:
-    color: #ffffff
     background-color: #ffffff44
     image-clip: 0 40 20 20
 

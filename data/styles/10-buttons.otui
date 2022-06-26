@@ -20,6 +20,10 @@ Button < UIButton
     image-clip: 0 46 22 23
     text-offset: 1 1
 
+  $checked:
+    image-clip: 0 46 22 23
+    text-offset: 1 1
+
   $disabled:
     color: #dfdfdf88
     opacity: 0.8

@@ -17,6 +17,8 @@ local showBarsCheck = nil
 local colorBoxes = {}
 local currentColorBox = nil
 
+local currentOutfitIndex = 1
+
 ignoreNextOutfitWindow = 0
 local floorTiles = 7
 local settingsFile = "/settings/outfit.json"
@@ -183,11 +185,45 @@ function create(currentOutfit, outfitList, mountList, wingList, auraList, shader
     destroy()
   end
 
-  if currentOutfit.shader == "" then
-    currentOutfit.shader = "outfit_default"
+  window = g_ui.displayUI("outfitwindow")
+
+  window.creature:setOutfit(currentOutfit)
+  tempOutfit = table.copy(currentOutfit)
+
+  colorBoxGroup = UIRadioGroup.create()
+  for j = 0, 6 do
+    for i = 0, 18 do
+      local colorBox = g_ui.createWidget("ColorBox", window.colorBoxPanel)
+      local outfitColor = getOutfitColor(j * 19 + i)
+      colorBox:setImageColor(outfitColor)
+      colorBox:setId("colorBox" .. j * 19 + i)
+      colorBox.colorId = j * 19 + i
+
+      if colorBox.colorId == currentOutfit.head then
+        currentColorBox = colorBox
+        colorBox:setChecked(true)
+      end
+      colorBoxGroup:addWidget(colorBox)
+    end
   end
 
-  loadSettings()
+  colorBoxGroup.onSelectionChange = onColorCheckChange
+
+  colorModeGroup = UIRadioGroup.create()
+  colorModeGroup:addWidget(window.head)
+  colorModeGroup:addWidget(window.body)
+  colorModeGroup:addWidget(window.legs)
+  colorModeGroup:addWidget(window.feet)
+
+  colorModeGroup.onSelectionChange = onColorModeChange
+  colorModeGroup:selectWidget(window.head)
+
+  for index, outfit in ipairs(outfitList) do
+    if outfit[1] == currentOutfit.lookType then
+      currentOutfitIndex = index
+      break
+    end
+  end
 
   ServerData = {
     currentOutfit = currentOutfit,
@@ -200,7 +236,13 @@ function create(currentOutfit, outfitList, mountList, wingList, auraList, shader
     manaBars = manaBarList
   }
 
-  window = g_ui.displayUI("outfitwindow")
+  --[[
+
+  if currentOutfit.shader == "" then
+    currentOutfit.shader = "outfit_default"
+  end
+
+  loadSettings()
 
   floor = window.preview.panel.floor
   for i = 1, floorTiles * floorTiles do
@@ -340,7 +382,7 @@ function create(currentOutfit, outfitList, mountList, wingList, auraList, shader
 
   window.configure.mount:setVisible(g_game.getFeature(GamePlayerMounts))
 
-  window.listSearch.search.onKeyPress = onFilterSearch
+  window.listSearch.search.onKeyPress = onFilterSearch]]
 end
 
 function destroy()
@@ -348,7 +390,17 @@ function destroy()
     window:destroy()
     window = nil
 
-    floor = nil
+    colorModeGroup:destroy()
+    colorModeGroup = nil
+    colorBoxGroup:destroy()
+    colorBoxGroup = nil
+
+    colorBoxes = {}
+    currentColorBox = nil
+
+    currentOutfitIndex = 1
+
+    --[[floor = nil
     movementCheck = nil
     showFloorCheck = nil
     showOutfitCheck = nil
@@ -358,30 +410,19 @@ function destroy()
     showShaderCheck = nil
     showBarsCheck = nil
 
-    colorBoxes = {}
-    currentColorBox = nil
-
     appearanceGroup:destroy()
-    appearanceGroup = nil
-    colorModeGroup:destroy()
-    colorModeGroup = nil
-    colorBoxGroup:destroy()
-    colorBoxGroup = nil
-
-    ServerData = {
-      currentOutfit = {},
-      outfits = {},
-      mounts = {},
-      wings = {},
-      auras = {},
-      shaders = {},
-      healthBars = {},
-      manaBars = {}
-    }
-
-    saveSettings()
-    settings = {}
+    appearanceGroup = nil]]
   end
+end
+
+function nextOutfit()
+  currentOutfitIndex = currentOutfitIndex + 1
+  if currentOutfitIndex > #ServerData.outfits then
+    currentOutfitIndex = 1
+  end
+
+  tempOutfit.type = ServerData.outfits[currentOutfitIndex][1]
+  window.creature:setOutfit(tempOutfit)
 end
 
 function configureAddons(addons)
@@ -1054,34 +1095,36 @@ end
 function onColorModeChange(widget, selectedWidget)
   local colorMode = selectedWidget:getId()
   if colorMode == "head" then
-    colorBoxGroup:selectWidget(window.appearance.colorBoxPanel["colorBox" .. tempOutfit.head])
-  elseif colorMode == "primary" then
-    colorBoxGroup:selectWidget(window.appearance.colorBoxPanel["colorBox" .. tempOutfit.body])
-  elseif colorMode == "secondary" then
-    colorBoxGroup:selectWidget(window.appearance.colorBoxPanel["colorBox" .. tempOutfit.legs])
-  elseif colorMode == "detail" then
-    colorBoxGroup:selectWidget(window.appearance.colorBoxPanel["colorBox" .. tempOutfit.feet])
+    colorBoxGroup:selectWidget(window.colorBoxPanel["colorBox" .. tempOutfit.head])
+  elseif colorMode == "body" then
+    colorBoxGroup:selectWidget(window.colorBoxPanel["colorBox" .. tempOutfit.body])
+  elseif colorMode == "legs" then
+    colorBoxGroup:selectWidget(window.colorBoxPanel["colorBox" .. tempOutfit.legs])
+  elseif colorMode == "feet" then
+    colorBoxGroup:selectWidget(window.colorBoxPanel["colorBox" .. tempOutfit.feet])
   end
 end
 
 function onColorCheckChange(widget, selectedWidget)
   local colorId = selectedWidget.colorId
-  local colorMode = colorModeGroup:getSelectedWidget():getId()
+  local colorMode = colorModeGroup:getSelectedWidget():getText():lower()
   if colorMode == "head" then
     tempOutfit.head = colorId
-  elseif colorMode == "primary" then
+  elseif colorMode == "body" then
     tempOutfit.body = colorId
-  elseif colorMode == "secondary" then
+  elseif colorMode == "legs" then
     tempOutfit.legs = colorId
-  elseif colorMode == "detail" then
+  elseif colorMode == "feet" then
     tempOutfit.feet = colorId
   end
+  
+  window.creature:setOutfit(tempOutfit)
 
-  updatePreview()
+  --[[updatePreview()
 
   if appearanceGroup:getSelectedWidget() == window.appearance.settings.outfit.check then
     showOutfits()
-  end
+  end]]
 end
 
 function updatePreview()

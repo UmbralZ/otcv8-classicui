@@ -63,7 +63,7 @@ function UIPopupMenu:addOption(optionName, optionCallback, shortcut)
     optionCallback()
   end
   optionWidget:setText(optionName)
-  local width = optionWidget:getTextSize().width + optionWidget:getMarginLeft() + optionWidget:getMarginRight() + 15
+  local width = optionWidget:getTextSize().width + optionWidget:getMarginLeft() + optionWidget:getMarginRight() + 50
 
   if shortcut then
     local shortcutLabel = g_ui.createWidget(self:getStyleName() .. 'ShortcutLabel', optionWidget)
@@ -75,7 +75,9 @@ function UIPopupMenu:addOption(optionName, optionCallback, shortcut)
 end
 
 function UIPopupMenu:addSeparator()
-  g_ui.createWidget(self:getStyleName() .. 'Separator', self)
+  local separator = g_ui.createWidget('HorizontalSeparator', self)
+  separator:setMarginLeft(1)
+  separator:setMarginRight(1)
 end
 
 function UIPopupMenu:setGameMenu(state)
