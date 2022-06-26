@@ -280,11 +280,11 @@ function onAddVip(id, name, state, description, iconId, notify)
   end
 
   if state == VipState.Online then
-    label:setColor('#00ff00')
+    label:setColor('#5ff75f')
   elseif state == VipState.Pending then
     label:setColor('#ffca38')
   else
-    label:setColor('#ff0000')
+    label:setColor('#f75f5f')
   end
 
   label.vipState = state
