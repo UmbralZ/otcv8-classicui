@@ -9,16 +9,22 @@ MainWindow
   @onEnter: modules.game_outfit.accept()
   @onEscape: modules.game_outfit.destroy()
 
-  UICreature
-    id: creature
+  FlatPanel
+    id: creaturePanel
     anchors.left: parent.left
     anchors.top: parent.top
     margin-top: 5
     size: 69 69
     phantom: true
-    image-source: /images/ui/panel_flat
-    center: true
-  
+
+    UICreature
+      id: creature
+      anchors.fill: parent
+      margin: 10
+      phantom: true
+      outfit-center: true
+      old-scaling: true
+    
   Button
     id: nextbtn
     text: Next
@@ -30,8 +36,8 @@ MainWindow
   Button
     id: head
     text: Head
-    anchors.top: creature.top
-    anchors.left: creature.right
+    anchors.top: creaturePanel.top
+    anchors.left: creaturePanel.right
     margin-left: 15
   
   Button
@@ -59,7 +65,7 @@ MainWindow
     id: colorBoxPanel
     anchors.left: prev.right
     anchors.right: parent.right
-    anchors.top: creature.top
+    anchors.top: creaturePanel.top
     margin-left: 15
     height: 87
     layout:

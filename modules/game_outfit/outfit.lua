@@ -187,7 +187,8 @@ function create(currentOutfit, outfitList, mountList, wingList, auraList, shader
 
   window = g_ui.displayUI("outfitwindow")
 
-  window.creature:setOutfit(currentOutfit)
+  window:recursiveGetChildById("creature"):setOutfit(currentOutfit)
+
   tempOutfit = table.copy(currentOutfit)
 
   colorBoxGroup = UIRadioGroup.create()
@@ -422,7 +423,7 @@ function nextOutfit()
   end
 
   tempOutfit.type = ServerData.outfits[currentOutfitIndex][1]
-  window.creature:setOutfit(tempOutfit)
+  window:recursiveGetChildById("creature"):setOutfit(tempOutfit)
 end
 
 function configureAddons(addons)
@@ -1117,8 +1118,8 @@ function onColorCheckChange(widget, selectedWidget)
   elseif colorMode == "feet" then
     tempOutfit.feet = colorId
   end
-  
-  window.creature:setOutfit(tempOutfit)
+
+  window:recursiveGetChildById("creature"):setOutfit(tempOutfit)
 
   --[[updatePreview()
 
