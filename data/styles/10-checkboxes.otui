@@ -35,14 +35,12 @@ PanelCheckBox < UIWidget
 
 ColorBox < UICheckBox
   size: 16 16
-  image-color: #dfdfdfff
-  image-source: /images/ui/colorbox
+  image-source:
+  icon: /images/ui/colorbox-border
+  icon-clip: 0 0 12 12
 
   $checked:
-    image-clip: 16 0 16 16
-
-  $!checked:
-    image-clip: 0 0 16 16
+    icon-clip: 0 12 12 12
 
 ButtonBox < UICheckBox
   font: verdana-11px-antialised

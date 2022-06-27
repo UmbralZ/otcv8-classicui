@@ -196,7 +196,7 @@ function create(currentOutfit, outfitList, mountList, wingList, auraList, shader
     for i = 0, 18 do
       local colorBox = g_ui.createWidget("ColorBox", window.colorBoxPanel)
       local outfitColor = getOutfitColor(j * 19 + i)
-      colorBox:setImageColor(outfitColor)
+      colorBox:setBackgroundColor(outfitColor)
       colorBox:setId("colorBox" .. j * 19 + i)
       colorBox.colorId = j * 19 + i
 
