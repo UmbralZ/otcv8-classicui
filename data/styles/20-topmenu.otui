@@ -5,9 +5,11 @@ TopButton < UIButton
   image-border: 3
   image-color: #ffffffff
   icon-color: #ffffffff
-
+  icon-clip: 0 0 20 20
+  
   $on:
     image-source: /images/ui/button_top_blink
+    icon-clip: 0 20 20 20
 
   $hover !disabled:
     image-color: #ffffff99
@@ -15,18 +17,23 @@ TopButton < UIButton
 
   $pressed:
     image-clip: 52 0 26 26
+    icon-clip: 0 20 20 20
 
   $disabled:
     image-color: #ffffff44
     icon-color: #ffffff44
 
 TopToggleButton < UIButton
-  size: 26 26
+  size: 20 20
   image-source: /images/ui/button_top
   image-clip: 0 0 26 26
   image-color: #ffffffff
   image-border: 3
+  icon-clip: 0 0 20 20
   icon-color: #ffffffff
+  
+  $on:
+    icon-clip: 0 20 20 20
 
   $hover !disabled:
     image-color: #ffffff99
@@ -34,6 +41,7 @@ TopToggleButton < UIButton
 
   $pressed:
     image-clip: 52 0 26 26
+    icon-clip: 0 20 20 20
 
   $disabled:
     image-color: #ffffff44
@@ -48,8 +56,10 @@ TopMenuButtonsPanel < Panel
 
 TopMenuPanel < Panel
   height: 36
-  image-source: /images/ui/panel_top
+  image-source: 
   image-repeated: true
+  image-border: 3
+  image-border-top: 0
   focusable: false
 
 TopMenuFrameCounterLabel < Label
@@ -63,53 +73,58 @@ TopMenuPingLabel < Label
 
 TopMenu < TopMenuPanel
   id: topMenu
+  width: 0
+  anchors.horizontalCenter: parent.horizontalCenter
   anchors.top: parent.top
-  anchors.left: parent.left
-  anchors.right: parent.right
+  &hideIngame: true
+  &reverseButtons: true
 
-  TopMenuButtonsPanel
-    id: leftButtonsPanel
+  UIWidget
+    id: discord
     anchors.top: parent.top
-    anchors.bottom: parent.bottom
     anchors.left: parent.left
-
-  TopMenuButtonsPanel
-    id: leftGameButtonsPanel
+    margin-top: 3
+    margin-left: 5
+    image-source: /images/ui/discord
+    
+  Label
+    id: discordLabel
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.left: prev.right
-    visible: false
-
-  TopMenuFrameCounterLabel
-    id: fpsLabel
-    text-auto-resize: true
-    anchors.top: parent.top
-    anchors.left: leftGameButtonsPanel.right
-
-  TopMenuPingLabel
-    color: white
-    id: pingLabel
-    text-auto-resize: true
-    anchors.top: fpsLabel.bottom
-    anchors.left: fpsLabel.left
-
-  Label
-    id: onlineLabel
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    anchors.horizontalCenter: parent.horizontalCenter
-    font: verdana-11px-antialised
     text-align: center
+    margin-left: 2
     text-auto-resize: true
 
   TopMenuButtonsPanel
     id: rightButtonsPanel
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-    anchors.right: parent.right
+    anchors.left: prev.right
 
   TopMenuButtonsPanel
     id: rightGameButtonsPanel
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.left: prev.right
+    visible: false
+
+  Label
+    id: onlineLabel
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    text-align: center
+    text-auto-resize: true
+
+  TopMenuButtonsPanel
+    id: leftButtonsPanel
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+
+  TopMenuButtonsPanel
+    id: leftGameButtonsPanel
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.right: prev.left
