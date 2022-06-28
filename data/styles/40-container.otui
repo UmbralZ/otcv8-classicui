@@ -10,25 +10,26 @@ ContainerWindow < MiniWindow
   UIItem
     id: containerItemWidget
     virtual: true
-    size: 13 13
+    size: 12 12
     anchors.top: parent.top
     anchors.left: parent.left
-    margin-top: 4
+    margin-top: 3
     margin-left: 5
 
   UIButton
     id: upButton
     anchors.top: lockButton.top
     anchors.right: lockButton.left
-    size: 14 14
+    margin-right: 2
+    size: 12 12
     image-source: /images/ui/miniwindow_buttons
-    image-clip: 42 0 14 14
+    image-clip: 43 1 12 12
 
     $hover:
-      image-clip: 42 14 14 14
+      image-clip: 43 15 12 12
 
     $pressed:
-      image-clip: 42 28 14 14
+      image-clip: 43 29 12 12
 
   Panel
     id: pagePanel

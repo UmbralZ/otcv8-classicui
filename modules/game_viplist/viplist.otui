@@ -12,7 +12,7 @@ VipListLabel < GameLabel
 
 MiniWindow
   id: vipWindow
-  !text: tr('VIP List')
+  !text: tr('VIP')
   height: 100
   icon: /images/topbuttons/viplist
   @onClose: modules.game_viplist.onMiniWindowClose()
