@@ -1,37 +1,37 @@
 HealthInfoShadowWidget < UIWidget
-  size: 89 11
-  image-source: /data/images/ui/tibia_bars
-  image-clip: 0 0 89 11
+  size: 90 11
+  image-source: /data/images/ui/bars
+  image-clip: 0 0 90 11
   margin-left: 6
 
 HealthInfoProgressBar < ProgressBar
-  size: 89 11
+  size: 90 11
   anchors.left: prev.left
   anchors.verticalCenter: prev.verticalCenter
-  image-source: /data/images/ui/tibia_bars
+  image-source: /data/images/ui/bars
   background: alpha
   &usingImage: true
 
 CipHealthBar < HealthInfoProgressBar
   id: healthBar
-  image-clip: 0 11 89 11
+  image-clip: 0 11 90 11
 
 CipManaBar < HealthInfoProgressBar
   id: manaBar
-  image-clip: 0 22 89 11
+  image-clip: 0 22 90 11
   image-auto-resize: false
 
 HealthInfoIcon < UIWidget
-  image-source: /data/images/ui/tibia_bars
-  image-clip: 89 11 12 11
+  image-source: /data/images/ui/health_mana
+  image-clip: 0 0 12 11
   image-size: 12 11
-  size: 10 11
+  size: 12 11
 
 ManaInfoIcon < UIWidget
-  image-source: /data/images/ui/tibia_bars
-  image-clip: 89 22 12 11
+  image-source: /data/images/ui/health_mana
+  image-clip: 0 11 12 11
   image-size: 12 11
-  size: 10 11
+  size: 12 11
 
 NonClosableMiniWindow
   height: 122
@@ -41,11 +41,13 @@ NonClosableMiniWindow
   &autoOpen: 2
 
   NonClosableMiniWindowContents
-    padding: 3 3 3 3
+    padding: 0 0 0 0
 
     HealthInfoIcon
       anchors.top: parent.top
       anchors.left: parent.left
+      margin-top: 4
+      margin-left: 5
     HealthInfoShadowWidget
       anchors.left: prev.right
       anchors.verticalCenter: prev.verticalCenter
@@ -54,7 +56,8 @@ NonClosableMiniWindow
     ManaInfoIcon
       anchors.top: prev.bottom
       anchors.left: parent.left
-      margin-top: 5
+      margin-top: 3
+      margin-left: 5
     HealthInfoShadowWidget
       anchors.left: prev.right
       anchors.verticalCenter: prev.verticalCenter
@@ -64,7 +67,7 @@ NonClosableMiniWindow
       id: healthLabel
       anchors.right: parent.right
       anchors.left: healthBar.right
-      margin-left: 5
+      margin-left: 10
       text: 100
       opacity: 0.7
       anchors.verticalCenter: healthBar.verticalCenter
@@ -73,7 +76,7 @@ NonClosableMiniWindow
       id: manaLabel
       anchors.right: parent.right
       anchors.left: manaBar.right
-      margin-left: 5
+      margin-left: 10
       opacity: 0.7
       text: 100
       anchors.verticalCenter: manaBar.verticalCenter

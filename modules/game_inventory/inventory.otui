@@ -93,7 +93,7 @@ CombatBox < UICheckBox
     image-clip: 0 20 20 20
 
 InventoryButton < Button
-  height: 18
+  height: 20
   margin-top: 2
   text-align: center
 
@@ -119,7 +119,7 @@ MountButton < CombatBox
   image-source: /images/game/combatmodes/mount    
 
 NonClosableMiniWindow
-  height: 160
+  height: 170
   id: inventoryWindow
   @onClose: modules.game_inventory.onMiniWindowClose()
   &save: true
@@ -129,7 +129,7 @@ NonClosableMiniWindow
     NeckSlot
       anchors.top: parent.top
       anchors.left: parent.left
-      margin-top: 13
+      margin-top: 18
       margin-right: 5
       margin-left: 5
 
@@ -137,34 +137,34 @@ NonClosableMiniWindow
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
       anchors.left: prev.left
-      margin-top: 3
+      margin-top: 4
 
     FingerSlot
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
       anchors.left: prev.left
-      margin-top: 3
+      margin-top: 4
     
     HeadSlot
       anchors.top: parent.top
       anchors.left: slot2.right
-      margin-top: 3
+      margin-top: 4
       margin-left: 4
 
     BodySlot
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
+      margin-top: 4
 
     LegSlot
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
+      margin-top: 4
 
     FeetSlot
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
+      margin-top: 4
     
     BackSlot
       anchors.top: slot2.top
@@ -174,12 +174,12 @@ NonClosableMiniWindow
     RightSlot
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
+      margin-top: 4
 
     AmmoSlot
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
+      margin-top: 4
 
     SoulCapLabel
       id: capLabel
@@ -201,12 +201,12 @@ NonClosableMiniWindow
       image-source: /images/ui/conditionPanel
       layout:
         type: horizontalBox
-      height: 14
+      height: 13
       padding: 2
       anchors.top: slot8.bottom
       anchors.left: slot6.left
       anchors.right: slot5.right
-      margin-top: 2
+      margin-top: 3
 
     FightOffensiveBox
       id: fightOffensiveBox
@@ -218,13 +218,13 @@ NonClosableMiniWindow
       id: fightBalancedBox
       anchors.left: prev.left
       anchors.top: prev.bottom
-      margin-top: 2
+      margin-top: 1
 
     FightDefensiveBox
       id: fightDefensiveBox
       anchors.left: prev.left
       anchors.top: prev.bottom
-      margin-top: 2
+      margin-top: 1
     
     CombatBox
       id: chaseModeBoxStand
@@ -238,13 +238,13 @@ NonClosableMiniWindow
       image-source: /images/game/combatmodes/chasemode
       anchors.left: prev.left
       anchors.top: prev.bottom
-      margin-top: 2
+      margin-top: 1
   
     SafeFightBox
       id: safeFightBox
       anchors.left: prev.left
       anchors.top: prev.bottom
-      margin-top: 2
+      margin-top: 1
       
     MountButton
       id: mountButton
@@ -257,7 +257,7 @@ NonClosableMiniWindow
       anchors.top: fightDefensiveBox.bottom
       anchors.left: fightDefensiveBox.left
       anchors.right: safeFightBox.right
-      margin-top: 2
+      margin-top: 3
       @onClick: g_game.stop() g_game.cancelAttackAndFollow()
 
     InventoryButton
@@ -274,4 +274,4 @@ NonClosableMiniWindow
       anchors.top: prev.bottom
       anchors.left: prev.left
       anchors.right: prev.right
-      margin-top: 2
+      margin-top: 3

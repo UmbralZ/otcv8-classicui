@@ -93,7 +93,7 @@ function init()
   hideLabels()
   hideExperience()
 
-  healthInfoWindow:setHeight(34)
+  healthInfoWindow:setHeight(32)
   
   if g_app.isMobile() then
     healthInfoWindow:close()
