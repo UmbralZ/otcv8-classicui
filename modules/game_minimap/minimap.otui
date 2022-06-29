@@ -88,7 +88,7 @@ MinimapFlagCheckBox < CheckBox
     image-clip: 52 0 26 26
 
 MinimapFlagWindow < MainWindow
-  !text: tr('Create Map Mark')
+  !text: tr('Edit Mark')
   size: 196 185
 
   Label
@@ -209,7 +209,7 @@ MinimapFlagWindow < MainWindow
   Button
     id: okButton
     !text: tr('Ok')
-    width: 64
+    width: 43
     anchors.right: next.left
     anchors.bottom: parent.bottom
     margin-right: 10
@@ -217,7 +217,7 @@ MinimapFlagWindow < MainWindow
   Button
     id: cancelButton
     !text: tr('Cancel')
-    width: 64
+    width: 43
     anchors.right: parent.right
     anchors.bottom: parent.bottom
 
@@ -226,29 +226,36 @@ InvisibleMinimapButton < UIButton
   size: 15 15
 
 NonClosableMiniWindow
-  height: 122
+  height: 117
   id: minimapWindow
   @onClose: modules.game_minimap.onMiniWindowClose()
   &save: true
   &autoOpen: 1
 
   NonClosableMiniWindowContents
-    margin-top: 2
-    padding: 3
+    margin-top: 4
+    margin-left: 8
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    image-size: 108 108
+
   
     Minimap
       id: minimap
-      width: 110
+      margin-top: 1
+      margin-left: 1
+      width: 106
+      height: 106
       anchors.left: parent.left
       anchors.top: parent.top
-      anchors.bottom: parent.bottom
+      
     
     UIWidget
       id: circle
       image-source: /images/game/minimap/circle
       anchors.left: prev.right
       anchors.top: prev.top
-      size: 44 44
+      size: 43 43
       margin-left: 10
 
     InvisibleMinimapButton
@@ -278,27 +285,27 @@ NonClosableMiniWindow
   
     UIButton
       image-source: /images/game/minimap/zoom-in
-      image-clip: 0 0 18 18
-      size: 18 18
+      image-clip: 0 0 20 20
+      size: 20 20
       anchors.left: circle.left
       anchors.top: circle.bottom
-      margin-top: 4
+      margin-top: 3
       @onClick: self:getParent().minimap:zoomIn()
 
       $pressed:
-        image-clip: 0 18 18 18
+        image-clip: 0 20 20 20
     
     UIButton
       image-source: /images/game/minimap/zoom-out
-      image-clip: 0 0 18 18
-      size: 18 18
+      image-clip: 0 0 20 20
+      size: 20 20
       anchors.left: prev.left
       anchors.top: prev.bottom
-      margin-top: 4
+      margin-top: 2
       @onClick: self:getParent().minimap:zoomOut()
 
       $pressed:
-        image-clip: 0 18 18 18
+        image-clip: 0 20 20 20
     
     UIButton
       image-source: /images/game/minimap/floor_up
@@ -306,7 +313,7 @@ NonClosableMiniWindow
       size: 20 20
       anchors.right: circle.right
       anchors.top: circle.bottom
-      margin-top: 4
+      margin-top: 3
       @onClick: self:getParent().minimap:floorUp(1)
 
       $pressed:
@@ -318,7 +325,7 @@ NonClosableMiniWindow
       size: 20 20
       anchors.left: prev.left
       anchors.top: prev.bottom
-      margin-top: 4
+      margin-top: 2
       @onClick: self:getParent().minimap:floorDown(1)
 
       $pressed:
